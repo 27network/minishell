@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cli.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/02 23:34:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2023/12/18 17:52:21 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/12 09:46:55 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/12 09:51:48 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft/print.h>
-#include <msh/shell/prompt.h>
-#include <msh/signal.h>
+#ifndef CLI_H
+# define CLI_H
 
-int	main(int argc, char *argv[], char *envp[])
-{
-	(void) argc;
-	(void) argv;
-	(void) envp;
-	msh_signal_init();
-	msh_shell_prompt();
-	clear_history();
-	rl_clear_history();
-	ft_putendl("exit");
-	return (0);
-}
+# include <msh/minishell.h>
+# include <msh/features.h>
+
+#endif // CLI_H

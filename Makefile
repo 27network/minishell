@@ -6,55 +6,32 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2023/12/20 07:39:16 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/12 20:04:44 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT_SRC		= libft
-LIBFT			= $(LIBFT_SRC)/build/output/libft.a
-
 NAME			= minishell 
 
-INCLUDES		= ./include
-SRC_FOLDER		= src
-
-SRC_FILES		= 	ast/lexer/msh_lexer_tokenize.c \
-					shell/msh_shell_prompt.c \
-					signal/msh_signal_init.c \
-					signal/msh_signal_handler.c \
-					main.c
-
-SRC_FILES		:=	$(addprefix $(SRC_FOLDER)/, $(SRC_FILES))
-OBJ_FILES		=	$(SRC_FILES:.c=.o)
-
-CC				= clang
-CFLAGS			= -Wall -Wextra -Werror -g3
-COPTS			= -I $(INCLUDES) -I $(LIBFT_SRC)/include
+CACHE_DIR		= $(shell pwd)/.cache
 
 all:			$(NAME)
 
-$(NAME):		$(LIBFT) $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(COPTS) $(OBJ_FILES) -o $(NAME) -lreadline $(LIBFT)
+$(NAME):
+	@echo "Making minishell/submodules/cli"
+	@make --no-print-directory -C submodules/cli all CACHE_DIR="$(CACHE_DIR)"
+	@echo "Linking minishell/submodules/cli"
+	@ln -sf submodules/cli/cli $(NAME)
 
-setup_bonus:
-	$(eval CFLAGS += -DMSH_BONUS=1)
-
-bonus:			setup_bonus $(LIBFT) $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(COPTS) $(OBJ_FILES) -o $(NAME) -lreadline $(LIBFT)
-
-$(LIBFT): 
-	make -C $(LIBFT_SRC) -j$(shell nproc) CFLAGS="$(CFLAGS)"
-
-%.o:			%.c
-	$(CC) $(CFLAGS) $(COPTS) -c $< -o $@
+bonus:
+	@echo "Making minishell bonus"
 
 clean:
-	make -C $(LIBFT_SRC) clean
-	rm -f $(COMMON_OBJ) $(PS_OBJ) $(CHECKER_OBJ)
+	@echo "Cleaning minishell"
+	@make --no-print-directory -C submodules/cli clean CACHE_DIR="$(CACHE_DIR)"
 
 fclean:			clean
-	make -C $(LIBFT_SRC) fclean
-	rm -f $(NAME) $(BONUS_NAME)
+	@echo "Fcleaning minishell"
+	@make --no-print-directory -C submodules/cli fclean CACHE_DIR="$(CACHE_DIR)"
 
 re:				fclean all
 

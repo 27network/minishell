@@ -1,8 +1,10 @@
 *.o
 *.a
 *.so
+*.d
 *.dll
 *.dylib
 *.exe
 *.out
 /minishell
+dummyshell

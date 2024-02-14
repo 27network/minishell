@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/12 22:34:31 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/14 02:50:24 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,11 @@ all: $(OUTPUT)
 
 $(DEP_FILES): $(DEPS_DIR)/%.d: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
+	@printf "Generating dependencies for $<\n"
 	$(CC) $(CFLAGS) -MM $< -MT $(OBJ_DIR)/$*.o -MF $@
 
 $(OUTPUT): $(DEPS) $(OBJ)
-ifeq ($(LD),ar)
+ifneq ($(IS_EXEC),1)
 	$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
 else
 	$(LD) $(LDFLAGS) $(OBJ) -o $(OUTPUT) $(DEPS:%=-Wl,--whole-archive %) 

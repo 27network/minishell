@@ -8,13 +8,17 @@ import pathlib
 import subprocess
 import sys
 
+__version__ = "0.0.1"
+__author__ = "kiroussa <oss@xtrm.me>"
+
 # because of course we need a fucking banner
-BANNER = """
+BANNER = f"""
                    __    __       __      
    ____ ___  _____/ /_  / /______/ /______
   / __ `__ \/ ___/ __ \/ __/ ___/ __/ ___/
  / / / / / (__  ) / / / /_(__  ) /_/ /    
-/_/ /_/ /_/____/_/ /_/\__/____/\__/_/     
+/_/ /_/ /_/____/_/ /_/\__/____/\__/_/   v{__version__}
+                                by {__author__}
                                           
 """
 
@@ -32,6 +36,15 @@ def main():
     no_logs = "--no-logs" in sys.argv
     if no_logs:
         print("[i] Writing logs is disabled by a CLI flag\n")
+
+    bash_bin_file = pathlib.Path(BASH_BIN)
+    if not bash_bin_file.exists() or not os.access(BASH_BIN, os.X_OK):
+        print("[!] Bash binary file doesn't exist or isn't executable")
+        return
+    msh_bin_file = pathlib.Path(MSH_BIN)
+    if not msh_bin_file.exists() or not os.access(MSH_BIN, os.X_OK):
+        print("[!] msh binary file doesn't exist or isn't executable")
+        return
 
     curr = pathlib.Path(".")
     test_files = list(curr.rglob("*.test"))

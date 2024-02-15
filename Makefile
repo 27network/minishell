@@ -6,13 +6,22 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/14 19:09:17 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/15 05:05:40 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= minishell 
+NAME			= minishell
 
-CACHE_DIR		= $(shell pwd)/.cache
+CWD				= $(shell dirname $(shell pwd))
+SUBMODULES		= submodules
+
+MAIN_MODULE		= cli
+MAIN_MODULE_OUT	= $(shell make -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
+
+CACHE_DIR		= .cache
+CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
+
+RM				= rm -rf
 
 # Colors
 BLUE		:=	$(shell tput -Txterm setaf 4)
@@ -32,32 +41,33 @@ define BANNER
 
 endef
 
-all:	 _banner $(NAME) 
+_DISABLE_CLEAN_LOG := 0
+
+all:	 $(NAME) 
 
 _banner:
 	$(info $(BANNER))
 
 $(NAME):
-	@echo "Making minishell/submodules/cli"
-	@make --no-print-directory -C submodules/cli all CACHE_DIR="$(CACHE_DIR)"
-	@echo "Linking minishell/submodules/cli"
-	@ln -sf submodules/cli/cli $(NAME)
+	@printf "Making minishell\n"
+	@make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)"
+	@printf "Linking $(CWD)/$(SUBMODULES)/$(MAIN_MODULE_OUT) -> $(NAME)\n"
+	@ln -sf $(NAME) $(SUBMODULES)/$(MAIN_MODULE)/$(MAIN_MODULE_OUT)
+	@printf "Done !\n"
 
 bonus:
-	@echo "Making minishell bonus"
+	@echo "Making $(NAME) bonus"
 
-_no_clean_log:
-	$(set _DISABLE_CLEAN_LOG := 1)
+_fclean_prelude:
+	@echo "(F)Cleaning $(NAME)"
+	$(eval _DISABLE_CLEAN_LOG := 1)
 
 clean:
-ifneq ($(_DISABLE_CLEAN_LOG),1)
-	@echo " Cleaning $(NAME)"
-endif
-	rm -rf $(CACHE_DIR)
+	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then echo "Cleaning $(NAME)"; fi
+	$(RM) $(CACHE_DIR)
 
-fclean:			_no_clean_log clean
-	@echo " F-Cleaning $(NAME)"
-	
+fclean:			_fclean_prelude clean
+	$(RM) $(NAME)
 
 re:				fclean all
 

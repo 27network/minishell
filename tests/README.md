@@ -1,32 +1,41 @@
-# tests
+# mshtst
 
-Welcome to the minishell testing framework:tm:
+Welcome to the dumb minishell testing framework:tm:
 
-## Structure
+## Prerequisites
 
-The tests are contained in multiple `.test` files, which each contain a command per line.  
+For this tester to function (i.e. start testing stuff), you need to have implemented at least the following in your `minishell`:
+- Line reading
+- Some sort of output
+- `echo $?` (optional, pass `--no-exit-code` to disable)
 
-Those commands are then executed with both `minishell` and `bash`, and their outputs are compared.
+## Usage
 
-## Special cases
+First, clone this repository and `cd` into it (Preferably clone it into your `minishell` folder/repo):
+```bash
+git clone https://github.com/seekrs/mshtst.git
 
-Here are some rules built-in:
-- If an output line starts with the path to the shell (usually because of errors), the path is replaced with `%DUMMYSHELL%`
-  - Example: `bash: line 1: test: No such file or directory` -> `%DUMMYSHELL%: line 1: [...]`
+cd mshtst
+```
 
-## The `.test` file format
+You might need to give run permissions to the main script:
+```bash
+chmod +x ./mshtst.py
+```
 
-The `.test` format is a simple collection of one-line commands, separated by newlines.
+Then you can run it:
+```bash
+./mshtst.py
+mshtst v0.1.1 - minishell tester 
+https://github.com/seekrs/mshtst 
 
-There are however two special cases:
-- If the line starts with a `#`, it is considered a comment and disregarded
-- If the line starts with a `:`, it is considered as a special command for the test runner.
+Usage:
+  ./mshtst [OPTIONS] [path/to/your/minishell] [path/to/bash] [<test files...>]
 
-### The special `:` commands
+Options:
+  --no-logs         Don't produce any logs
+  --no-exit-code    Disable the checking of exit codes
 
-Commands are read sequentially, meaning that once a command is found in a file, it will be applied to every following test.
-
-- `:ENV`
-  - This allows to set an environment variable (Ex: `:ENV TESTCMD=echo`)
-- `:TIMEOUT`
-  - Allows setting a custom execution timeout, in milliseconds (Ex: `:TIMEOUT 10000`, for 10 seconds)
+  -h, --help        Print help
+  -V, --version     Print version
+```

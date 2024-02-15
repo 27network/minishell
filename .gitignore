@@ -1,3 +1,4 @@
+.cache/
 *.o
 *.a
 *.so
@@ -6,5 +7,5 @@
 *.dylib
 *.exe
 *.out
-/minishell
+minishell
 dummyshell

@@ -1,0 +1,4 @@
+# j'ai trouvé ça dans un script random sur mon pc
+tr '\n' ' ' <<EOF | grep '^[-[:alnum:]_=,./:]* $' >/dev/null 2>&1 && { echo "DOLLARUN" ; return 0 ; }
+DOLLARUN
+EOF

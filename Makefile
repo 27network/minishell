@@ -6,17 +6,18 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/15 05:05:40 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/16 05:33:58 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-CWD				= $(shell dirname $(shell pwd))
+CWD				?= $(shell pwd)
 SUBMODULES		= submodules
 
 MAIN_MODULE		= cli
-MAIN_MODULE_OUT	= $(shell make -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
+MAIN_MODULE_OUT	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
+CLI_EXEC		= $(CWD)/$(MAIN_MODULE_OUT)
 
 CACHE_DIR		= .cache
 CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
@@ -48,12 +49,14 @@ all:	 $(NAME)
 _banner:
 	$(info $(BANNER))
 
-$(NAME):
+$(CLI_EXEC):
 	@printf "Making minishell\n"
 	@make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)"
-	@printf "Linking $(CWD)/$(SUBMODULES)/$(MAIN_MODULE_OUT) -> $(NAME)\n"
-	@ln -sf $(NAME) $(SUBMODULES)/$(MAIN_MODULE)/$(MAIN_MODULE_OUT)
-	@printf "Done !\n"
+
+$(NAME): $(CLI_EXEC)
+	@printf "Linking $(CLI_EXEC) -> $(NAME)\n"
+	@cp -f "$(CLI_EXEC)" "$(NAME)"
+	@printf "$(GREEN)Done!$(RESET)\n"
 
 bonus:
 	@echo "Making $(NAME) bonus"

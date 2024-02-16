@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/15 05:54:16 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/16 05:31:20 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,14 +54,15 @@ $(OUTPUT): $(DEPS) $(OBJ)
 ifneq ($(IS_EXEC),1)
 	$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
 else
-	$(LD) $(LDFLAGS) $(OBJ) -o $(OUTPUT) 
+	$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)  
 endif
 	@printf "$(SPACING)\033[32m$(OUTPUT) created\033[0m\n"
 
 $(DEPS):
 	@printf "$(SPACING)> Making dep '$@'\n"
 	@printf "$(SPACING)"
-	make -C ../$@ all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
+	@make -C ../$@ all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
+	@printf "$(SPACING)< Dep '$@' done\n"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -73,7 +74,7 @@ clean_deps:
 	@if [ "$(DISABLE_CLEAN)" = "0" ]; then \
 		printf "$(SPACING)Cleaning dependencies\n"; \
 		for dep in $(DEPS); do \
-			make -C ../$$dep clean CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"; \
+			make -C "../$$dep" clean CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"; \
 		done; \
 	fi
 
@@ -84,7 +85,7 @@ clean: clean_deps
 fclean_deps:
 	@printf "$(SPACING)(F)Cleaning dependencies\n"
 	@for dep in $(DEPS); do \
-		make -C ../$$dep fclean CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"; \
+		make -C "../$$dep" fclean CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"; \
 	done
 
 __disable_clean:
@@ -97,7 +98,7 @@ fclean: __disable_clean fclean_deps clean
 
 re: fclean all
 
-print_OUTPUT:
-	@echo $(OUTPUT)
+print_%:
+	@echo "$($*)"
 
-.PHONY: all clean fclean re print_OUTPUT
+.PHONY: all clean fclean re print_% clean_deps fclean_deps __disable_clean

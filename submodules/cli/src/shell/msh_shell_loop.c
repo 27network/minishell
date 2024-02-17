@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:16:25 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:48:18 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/17 05:53:18 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	msh_shell_loop(t_minishell *msh)
 	{
 		line = readline(prompt);
 		if (!line)
+		{
+			ft_printf("exit\n");
 			break ;
+		}
 		if (*line)
 			add_history(line);
 		ft_printf("echoing '%s'\n", line);

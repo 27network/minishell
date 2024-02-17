@@ -6,13 +6,18 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:41:40 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:01:39 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/17 05:55:16 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
 #include <msh/io/path.h>
 
+/**
+ * TODO: add those checks: 
+ * https://github.com/bminor/bash/blob/master/builtins/evalfile.c#L136-L190
+ * (checkout 7d7979ba4c2b7848b81f526eac44340909ddd5a1)
+ */
 int	msh_run_file(t_minishell *msh, const char *filename)
 {
 	char	*resolved;
@@ -25,7 +30,6 @@ int	msh_run_file(t_minishell *msh, const char *filename)
 		return (127);
 	}
 	msh->name = resolved;
-	//TODO: add those checks: https://github.com/bminor/bash/blob/f3b6bd19457e260b65d11f2712ec3da56cef463f/builtins/evalfile.c#L136-L190
 	ft_dprintf(2, "%s: %s: %s\n", msh->name, resolved, "running files or "
 		"scripts is not implemented yet");
 	free(resolved);

@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   msh_shell_loop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:18:51 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 05:16:25 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 05:19:56 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
-#include <msh/cli/cli.h>
-#include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/cli/signal.h>
 
-int	main(int argc, char *argv[], char *envp[])
+void	msh_shell_loop(t_minishell *msh)
 {
-	t_minishell	minishell;
+	char	*line;
+	char	*prompt;
 
-	msh_init(&minishell, argc, argv, envp);
-	msh_signal_init();
-	if (argc == 1)
+	(void) msh;
+	prompt = NULL;
+	while (true)
 	{
-		msh_shell_loop(&minishell);
-		return (0);
+		line = readline(prompt);
+		if (!line)
+			break ;
+		if (*line)
+			add_history(line);
+		ft_printf("echoing '%s'\n", line);
+		free(line);
 	}
-	else
-		return (msh_handle_opts(&minishell));
-	return (0);
 }

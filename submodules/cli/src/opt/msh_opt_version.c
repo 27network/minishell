@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   msh_opt_version.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:18:51 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 03:03:09 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 04:51:10 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
-#include <msh/cli/cli.h>
 #include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/cli/signal.h>
 
-int	main(int argc, char *argv[], char *envp[])
+void	msh_print_version(t_minishell *msh, int fd)
 {
-	t_minishell	minishell;
+	ft_dprintf(fd, "%s, version %s\n", msh->name, MSH_VERSION);
+}
 
-	msh_init(&minishell, argc, argv, envp);
-	msh_signal_init();
-	if (argc == 1)
-	{
-		msh_shell_loop(&minishell);
-		return (0);
-	}
-	else
-		return (msh_handle_opts(&minishell));
+int	msh_opt_version(t_minishell *msh)
+{
+	msh_print_version(msh, 1);
+	ft_printf("Copyright (C) 2024 Seekrs\n");
+	ft_printf("License MIT: <https://opensource.org/licenses/MIT>\n\n");
+	ft_printf("This is free software; you are free to change and "
+		"redistribute it.\n");
+	ft_printf("There is NO WARRANTY, to the extent permitted by law.\n");
 	return (0);
 }

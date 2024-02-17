@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   msh_opt_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:18:51 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 01:15:09 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 04:55:17 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
-#include <msh/cli/cli.h>
-#include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/cli/signal.h>
 
-int	main(int argc, char *argv[], char *envp[])
+int	msh_opt_command(t_minishell *msh)
 {
-	t_minishell	minishell;
+	const char	*cmd;
 
-	msh_init(&minishell, argc, argv, envp);
-	msh_signal_init();
-	if (argc == 1)
+	if (msh->launch_args.argc == 2)
 	{
-		msh_shell_loop(&minishell);
-		return (0);
+		ft_dprintf(2, "%s: -c: option requires an argument\n",
+			msh->launch_args.argv[0]);
+		return (2);
 	}
-	else
-		return (msh_handle_opts(&minishell));
+	cmd = msh->launch_args.argv[2];
+	if (msh->launch_args.argc > 3)
+		msh->name = msh->launch_args.argv[3];
+	ft_printf("cmd: %s\n", cmd);
 	return (0);
 }

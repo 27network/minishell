@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   msh_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:18:51 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 01:45:29 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 04:55:48 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
-#include <msh/cli/cli.h>
-#include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/cli/signal.h>
 
-int	main(int argc, char *argv[], char *envp[])
+int	msh_init(t_minishell *msh, int argc, char **argv, char **envp)
 {
-	t_minishell	minishell;
-
-	msh_init(&minishell, argc, argv, envp);
-	msh_signal_init();
-	if (argc == 1)
-	{
-		msh_shell_loop(&minishell);
-		return (0);
-	}
-	else
-		return (msh_handle_opts(&minishell));
+	msh->name = argv[0];
+	msh->launch_args.argc = argc;
+	msh->launch_args.argv = (const char **)argv;
+	msh->launch_args.envp = (const char **)envp;
 	return (0);
 }

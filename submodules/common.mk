@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/16 05:31:20 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/17 04:27:28 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,23 +52,21 @@ all: $(OUTPUT)
 $(OUTPUT): $(DEPS) $(OBJ)
 	@printf "$(SPACING)"
 ifneq ($(IS_EXEC),1)
-	$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
+	@printf "💼 Linking $(OUTPUT)\n"
+	@$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
 else
-	$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)  
+	@printf "🖥️  Linking $(OUTPUT)\n"
+	@$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)  
 endif
-	@printf "$(SPACING)\033[32m$(OUTPUT) created\033[0m\n"
 
 $(DEPS):
-	@printf "$(SPACING)> Making dep '$@'\n"
-	@printf "$(SPACING)"
+	@printf "$(SPACING)📑 Making '$@'\n"
 	@make -C ../$@ all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
-	@printf "$(SPACING)< Dep '$@' done\n"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@printf "$(SPACING)Compiling $<\n"
-	@printf "$(SPACING)"
-	$(CC) $(CFLAGS) -c $< -o $@
+	@printf "$(SPACING)🔨 $<\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean_deps:
 	@if [ "$(DISABLE_CLEAN)" = "0" ]; then \

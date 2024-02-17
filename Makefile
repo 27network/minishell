@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/16 05:33:58 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/17 05:23:42 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,9 @@ NAME			= minishell
 
 CWD				?= $(shell pwd)
 SUBMODULES		= submodules
+
+LIBFT_DIR		= $(CWD)/third-party/libft
+LIBFT			= $(LIBFT_DIR)/build/output/libft.a
 
 MAIN_MODULE		= cli
 MAIN_MODULE_OUT	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
@@ -31,6 +34,9 @@ RED			:=	$(shell tput -Txterm setaf 1)
 RESET		:=	$(shell tput -Txterm sgr0)
 GREEN		:=	$(shell tput -Txterm setaf 2)
 
+AUTHORS		=	$(shell paste -s -d ':' auteur | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
+VG_RUN		?=
+
 # multiline BANNER
 define BANNER
  $(BLUE)               $(BOLD_WHITE)    $(RED)__  
@@ -38,25 +44,29 @@ define BANNER
  $(BLUE)  / __ `__ \$(BOLD_WHITE)/ ___$(RED)/ __ \  
  $(BLUE) / / / / / $(BOLD_WHITE)(__  )$(RED) / / /
  $(BLUE)/_/ /_/ /_$(BOLD_WHITE)/____/$(RED)_/ /_/  $(RESET)v0.0.1
-             by kiroussa & cglandus
+             by $(AUTHORS)
 
 endef
 
 _DISABLE_CLEAN_LOG := 0
 
-all:	 $(NAME) 
+all:	 _banner $(NAME) 
 
 _banner:
 	$(info $(BANNER))
 
 $(CLI_EXEC):
 	@printf "Making minishell\n"
-	@make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)"
+	@make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)"
 
-$(NAME): $(CLI_EXEC)
+$(NAME): $(LIBFT) $(CLI_EXEC)
 	@printf "Linking $(CLI_EXEC) -> $(NAME)\n"
 	@cp -f "$(CLI_EXEC)" "$(NAME)"
 	@printf "$(GREEN)Done!$(RESET)\n"
+
+$(LIBFT):
+	@printf "Making libft\n"
+	@make --no-print-directory -C $(LIBFT_DIR) -j 
 
 bonus:
 	@echo "Making $(NAME) bonus"
@@ -73,5 +83,8 @@ fclean:			_fclean_prelude clean
 	$(RM) $(NAME)
 
 re:				fclean all
+
+valgrind:		$(NAME)
+	valgrind --suppressions=valgrind.vsupp -s --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(VG_RUN)
 
 .PHONY:			all bonus clean fclean re

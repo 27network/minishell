@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:18:51 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 05:09:18 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 05:09:41 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/minishell.h>
-#include <msh/cli/cli.h>
-#include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/cli/signal.h>
+#ifndef SIGNAL_H
+# define SIGNAL_H
 
-int	main(int argc, char *argv[], char *envp[])
-{
-	t_minishell	minishell;
+extern int	g_signal;
 
-	msh_init(&minishell, argc, argv, envp);
-	msh_signal_init();
-	if (argc == 1)
-	{
-		msh_shell_loop(&minishell);
-		return (0);
-	}
-	else
-		return (msh_handle_opts(&minishell));
-	return (0);
-}
+void	msh_signal_init(void);
+void	msh_signal_handler(int signum);
+
+#endif // SIGNAL_H

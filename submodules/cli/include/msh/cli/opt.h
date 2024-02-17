@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   opt.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:18:51 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 01:15:43 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 02:16:22 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/minishell.h>
-#include <msh/cli/cli.h>
-#include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/cli/signal.h>
+#ifndef OPT_H
+# define OPT_H
 
-int	main(int argc, char *argv[], char *envp[])
-{
-	t_minishell	minishell;
+# include <msh/minishell.h>
 
-	msh_init(&minishell, argc, argv, envp);
-	msh_signal_init();
-	if (argc == 1)
-	{
-		msh_shell_loop(&minishell);
-		return (0);
-	}
-	else
-		return (msh_handle_opts(&minishell));
-	return (0);
-}
+int	msh_handle_opts(t_minishell *msh);
+
+# ifdef MSH_OPT_IMPL
+
+int	msh_opt_command(t_minishell *msh);
+int	msh_opt_help(t_minishell *msh);
+int	msh_opt_version(t_minishell *msh);
+
+# endif // MSH_OPT_IMPL
+
+#endif // OPT_H

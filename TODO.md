@@ -17,16 +17,16 @@ Make related:
   - [ ] Depend on .d files
     - [ ] in ./Makefile
     - [ ] in ./submodules/common.mk
-- [ ] Add /third-party to compilation
+- [x] Add /third-party to compilation
 - [ ] Better output
 
-## Execution
+## Execution sources
 
-- [ ] `minishell` interactive
-- [ ] `minishell -c "cmd"`
+- [x] `minishell` interactive
+- [x] `minishell -c "cmd"`
   - `bash -c "echo meow"` exec la cmd
   - `bash -c "meow echo" "minishell"` exec la cmd, change le nom du shell
-- [ ] `echo "echo lol" | minishell`
+- [x] `echo "echo lol" | minishell`
 - [ ] `minishell test.sh`
-  - `bash anything.sh [arg1] [arg2]`, exec script, only needs read perm 
-- [ ] shebang, redirects to `bash <file>`
+  - `bash anything.sh [arg1] [arg2]`, exec script, needs read perm, rejects binary executables 
+  - shebang: redirects to `minishell <file>`

@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   system.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 05:19:05 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 10:15:27 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 10:20:10 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 10:21:25 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef SYSTEM_H
+# define SYSTEM_H
 
-# include <msh/minishell.h>
+char	*msh_get_hostname(void);
 
-void	msh_shell_loop(t_minishell *msh);
-
-char	*msh_prompt_bash(void);
-
-#endif // SHELL_H
+#endif // SYSTEM_H

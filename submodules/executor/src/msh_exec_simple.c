@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   msh_exec_simple.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 05:19:05 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 10:15:27 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 10:38:54 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include <msh/exec/exec.h>
 
-# include <msh/minishell.h>
+int	msh_exec_simple(t_minishell *msh, char **args)
+{
+	pid_t	pid;
+	int		status;
 
-void	msh_shell_loop(t_minishell *msh);
-
-char	*msh_prompt_bash(void);
-
-#endif // SHELL_H
+	status = -1;
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execvp(args[0], args) == -1)
+			ft_printf("%s: %s: %m\n", msh->name, args[0]);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+		ft_printf("%s: %s: %m\n", msh->name, args[0]);
+	else
+		waitpid(pid, &status, 0);
+	return (status);
+}

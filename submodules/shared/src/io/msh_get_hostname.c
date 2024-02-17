@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   msh_get_hostname.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 05:19:05 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 10:15:27 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/17 10:16:37 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/17 10:17:00 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include <msh/minishell.h>
 
-# include <msh/minishell.h>
+char	*msh_get_hostname(void)
+{
+	static char	*hostname = NULL;
+	int			fd;
 
-void	msh_shell_loop(t_minishell *msh);
-
-char	*msh_prompt_bash(void);
-
-#endif // SHELL_H
+	if (!hostname)
+	{
+		fd = open("/etc/hostname", O_RDONLY);
+		if (fd != -1)
+		{
+			hostname = get_next_line(fd);
+			hostname[ft_strlen(hostname) - 1] = '\0';
+			close(fd);
+		}
+		if (!hostname)
+			hostname = ft_strdup("localhost");
+	}
+	return (hostname);
+}

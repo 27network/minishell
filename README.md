@@ -8,13 +8,11 @@ Or as we like to call it:
 
 `minishell` is split into multiple independant-ish modules:
 
-- submodules/**ast**/**tokenizer**
+- submodules/**tokenizer**
 
-- submodules/**ast**/**lexer**
+- submodules/**lexer**
 
-- submodules/**ast**/**parser**
-
-- submodules/**ast**
+- submodules/**parser**
 
 - submodules/**cli**
   - The **C**ommand **L**ine **I**nterface, allows for configuring, executing, and prompting minishell

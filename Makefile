@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/18 18:33:51 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/18 23:40:34 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,18 @@ SUBMODULES		= submodules
 LIBFT_DIR		= $(CWD)/third-party/libft
 LIBFT			= $(LIBFT_DIR)/build/output/libft.a
 
+CACHE_DIR		= .cache
+CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
+
 MAIN_MODULE		= cli
 MAIN_MODULE_OUT	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
 CLI_EXEC		= $(CWD)/$(MAIN_MODULE_OUT)
+$(warning $(CLI_EXEC))
 
-MODULE_TREE		= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | uniq)
-
-CACHE_DIR		= .cache
-CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
+DEPENDENCY_TREE	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | tac - | uniq)
+D_FILES			:= $(foreach dep, $(DEPENDENCY_TREE), $(shell make --no-print-directory -C $(SUBMODULES)/$(dep) print_D_FILES CACHE_DIR="$(CACHE_DIR)"))
+_				:= $(foreach dep, $(DEPENDENCY_TREE), $(eval D_FILES += $(shell make --no-print-directory -C $(SUBMODULES)/$(dep) print_SELF_DEP CACHE_DIR="$(CACHE_DIR)")))
+_				:= $(warning $(D_FILES))
 
 RM				= rm -rf
 
@@ -55,9 +59,10 @@ _DISABLE_CLEAN_LOG := 0
 
 all:	 _banner $(NAME) 
 
+-include $(D_FILES)
+
 _banner:
 	$(info $(BANNER))
-	@if [ -f $(NAME) ]; then echo "$(NAME) already exists, doing nothing."; fi
 
 $(CLI_EXEC):
 	@printf "Making minishell\n"

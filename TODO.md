@@ -12,7 +12,7 @@ Make related:
 - [ ] Dependency system
   - [x] Automatically make
   - [ ] Fix submodules trying to relink deps
-  - [ ] Build dependency tree
+  - [x] Build dependency tree
   - [ ] Generate .d files
   - [ ] Depend on .d files
     - [ ] in ./Makefile

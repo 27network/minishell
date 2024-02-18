@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/18 18:18:38 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/18 23:39:56 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,15 +41,9 @@ DISABLE_CLEAN	:=	0
 
 all: $(OUTPUT)
 
-#-include $(D_FILES)
+-include $(D_FILES)
 
-#$(D_FILES): $(D_DIR)/%.d: $(SRC_DIR)/%.c
-#	@mkdir -p $(dir $@)
-#	@printf "$(SPACING)Generating dependencies for $<\n"
-#	@printf "$(SPACING)"
-#	$(CC) $(CFLAGS) -MM $< -MT $(OBJ_DIR)/$*.o -MF $@
-
-$(OUTPUT): $(DEPS) $(OBJ)
+$(OUTPUT): $(SELF_DEP) $(DEPS) $(OBJ)
 	@printf "$(SPACING)"
 ifneq ($(IS_EXEC),1)
 	@printf "💼 Linking $(OUTPUT)\n"
@@ -63,10 +57,20 @@ $(DEPS):
 	@printf "$(SPACING)📑 Making '$@'\n"
 	@make -C ../$@ all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(D_DIR)
 	@mkdir -p $(dir $@)
+	@mkdir -p $(dir $(D_DIR)/$*)
 	@printf "$(SPACING)🔨 $<\n"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(DFLAGS) $(CFLAGS) -c "$(shell pwd)/$<" -o $@
+	@# dumb fixes, see https://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
+	@mv -f $(D_DIR)/$*.tmp.d $(D_DIR)/$*.d
+	@touch $@
+
+$(D_DIR): ; @mkdir -p $@
+
+$(SELF_DEP):
+	@mkdir -p $(dir $(SELF_DEP))
+	@echo "$(OUTPUT): $(OBJ) $(LIBS)" > $(SELF_DEP)
 
 clean_deps:
 	@if [ "$(DISABLE_CLEAN)" = "0" ]; then \

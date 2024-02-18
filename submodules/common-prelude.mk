@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:06:42 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/17 10:27:52 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/18 23:35:20 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,15 @@ else
 	CFLAGS		+=	-nostdlib
 endif
 
-include ../defaults.mk
-
 MODULE_CACHE	:=	$(CACHE_DIR)/$(NAME)
 OBJ_DIR			?=	$(MODULE_CACHE)/obj
 D_DIR			?=	$(MODULE_CACHE)/deps
 
-CFLAGS			+=	-I$(INCLUDE_DIR)
+SELF_DEP		=	$(D_DIR)/_module.d
+
+include ../defaults.mk
+
+CFLAGS			+=	-I$(shell pwd)/$(INCLUDE_DIR)
 ifdef LIBFT_DIR
 	CFLAGS		+=	-I$(LIBFT_DIR)/include
 endif
@@ -48,7 +50,7 @@ CFLAGS			+=	-DMINISHELL_DEFAULT_NAME="$(PROJECT_NAME)"
 CFLAGS			+=	-DMINISHELL_VERSION="$(PROJECT_VERSION)"
 
 ifdef DEPS
-	TMPDEPDECL 	:= $(DEPS:%=-I../%/include)
+	TMPDEPDECL 	:= $(DEPS:%=-I$(shell pwd | xargs dirname)/%/include)
 	CFLAGS		+=	$(TMPDEPDECL)
 endif
 

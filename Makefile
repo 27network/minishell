@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/18 23:40:34 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/19 00:26:21 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
 MAIN_MODULE		= cli
 MAIN_MODULE_OUT	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
 CLI_EXEC		= $(CWD)/$(MAIN_MODULE_OUT)
-$(warning $(CLI_EXEC))
 
 DEPENDENCY_TREE	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | tac - | uniq)
 D_FILES			:= $(foreach dep, $(DEPENDENCY_TREE), $(shell make --no-print-directory -C $(SUBMODULES)/$(dep) print_D_FILES CACHE_DIR="$(CACHE_DIR)"))

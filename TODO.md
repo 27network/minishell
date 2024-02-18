@@ -13,10 +13,10 @@ Make related:
   - [x] Automatically make
   - [ ] Fix submodules trying to relink deps
   - [x] Build dependency tree
-  - [ ] Generate .d files
-  - [ ] Depend on .d files
+  - [x] Generate .d files
+  - [x] Depend on .d files
     - [ ] in ./Makefile
-    - [ ] in ./submodules/common.mk
+    - [x] in ./submodules/common.mk
 - [x] Add /third-party to compilation
 - [ ] Better output
 

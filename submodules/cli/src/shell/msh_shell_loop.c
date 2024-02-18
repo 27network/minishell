@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:16:25 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/18 20:52:31 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/19 00:34:50 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static int	msh_debug_exec(t_minishell *msh, char *line)
 	array = ft_splits(line, " \t\n\f");
 	if (!array)
 		return (-1);
-	ft_printf("--- Executing ---\n");
 	ret = msh_exec_simple(msh, array);
-	ft_printf("---   Done    ---\n");
 	i = 0;
 	while (array[i])
 		free(array[i++]);
@@ -37,7 +35,6 @@ static int	msh_debug_exec(t_minishell *msh, char *line)
 
 static int	msh_handle_line(t_minishell *msh, char *line)
 {
-	ft_printf("Read: '%s'\n", line);
 	if (*line)
 		add_history(line);
 	return (msh_debug_exec(msh, line));

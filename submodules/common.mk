@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/17 10:28:06 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/18 18:18:38 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,4 +99,12 @@ re: fclean all
 print_%:
 	@echo "$($*)"
 
-.PHONY: all clean fclean re print_% clean_deps fclean_deps __disable_clean
+printdeptree:
+	@printf "$(NAME) "
+ifdef DEPS
+	@for dep in $(DEPS); do \
+		make --no-print-directory -s -C "../$$dep" printdeptree; \
+	done
+endif
+
+.PHONY: all clean fclean re print_% clean_deps fclean_deps __disable_clean printdeptree

@@ -6,11 +6,12 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/17 05:23:42 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/18 18:33:51 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= minishell
+NAME			= $(shell make -f config/config.mk print_PROJECT_NAME)
+VERSION			= $(shell make -f config/config.mk print_PROJECT_VERSION)
 
 CWD				?= $(shell pwd)
 SUBMODULES		= submodules
@@ -21,6 +22,8 @@ LIBFT			= $(LIBFT_DIR)/build/output/libft.a
 MAIN_MODULE		= cli
 MAIN_MODULE_OUT	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
 CLI_EXEC		= $(CWD)/$(MAIN_MODULE_OUT)
+
+MODULE_TREE		= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | uniq)
 
 CACHE_DIR		= .cache
 CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
@@ -43,7 +46,7 @@ define BANNER
  $(BLUE)   ____ ___  $(BOLD_WHITE)_____$(RED)/ /_ 
  $(BLUE)  / __ `__ \$(BOLD_WHITE)/ ___$(RED)/ __ \  
  $(BLUE) / / / / / $(BOLD_WHITE)(__  )$(RED) / / /
- $(BLUE)/_/ /_/ /_$(BOLD_WHITE)/____/$(RED)_/ /_/  $(RESET)v0.0.1
+ $(BLUE)/_/ /_/ /_$(BOLD_WHITE)/____/$(RED)_/ /_/  $(RESET)v$(VERSION)
              by $(AUTHORS)
 
 endef
@@ -54,6 +57,7 @@ all:	 _banner $(NAME)
 
 _banner:
 	$(info $(BANNER))
+	@if [ -f $(NAME) ]; then echo "$(NAME) already exists, doing nothing."; fi
 
 $(CLI_EXEC):
 	@printf "Making minishell\n"

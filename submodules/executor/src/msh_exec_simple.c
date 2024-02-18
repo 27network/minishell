@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 10:38:54 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/18 21:47:50 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	msh_exec_simple(t_minishell *msh, char **args)
 	{
 		if (execvp(args[0], args) == -1)
 			ft_printf("%s: %s: %m\n", msh->name, args[0]);
-		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		ft_printf("%s: %s: %m\n", msh->name, args[0]);

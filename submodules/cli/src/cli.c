@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/18 23:41:50 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/19 03:08:24 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <msh/cli/opt.h>
 #include <msh/cli/shell.h>
 #include <msh/cli/signal.h>
-
-#define TESTE wowowow
 
 int	main(int argc, char *argv[], char *envp[])
 {

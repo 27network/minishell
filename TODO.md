@@ -9,14 +9,15 @@ Feature management system ideas:
 - `features.h` + `features.mk`
 
 Make related:
-- [ ] Dependency system
+- [x] Dependency system
   - [x] Automatically make
-  - [ ] Fix submodules trying to relink deps
+  - [x] Fix submodules trying to relink deps
   - [x] Build dependency tree
   - [x] Generate .d files
   - [x] Depend on .d files
-    - [ ] in ./Makefile
+    - [x] in ./Makefile
     - [x] in ./submodules/common.mk
+  - [x] Fix bug where .c files dont recompile .o
 - [x] Add /third-party to compilation
 - [ ] Better output
 

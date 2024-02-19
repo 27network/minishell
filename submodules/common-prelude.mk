@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:06:42 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/18 23:35:20 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/19 01:52:25 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ endif
 LIBS :=
 ifdef DEPS
 ifeq ($(IS_EXEC), 1)
-	BUILD_NEW_ARRAY = $(eval LIBS += "$(CACHE_DIR)/$(shell echo "$(1)" | xargs)/lib$(shell echo "$(1)" | xargs).a")
+	BUILD_NEW_ARRAY = $(eval LIBS += $(CACHE_DIR)/$(shell echo "$(1)" | xargs)/lib$(shell echo "$(1)" | xargs).a)
 	_ := $(foreach item, $(DEPS), $(call BUILD_NEW_ARRAY, $(item)))
 
 	LDFLAGS		+=	$(LIBS:%=-Wl,--whole-archive %)

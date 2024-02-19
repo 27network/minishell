@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/18 23:39:56 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/19 02:47:27 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ all: $(OUTPUT)
 
 -include $(D_FILES)
 
-$(OUTPUT): $(SELF_DEP) $(DEPS) $(OBJ)
+$(OUTPUT): $(SELF_DEP) $(LIBS) $(OBJ)
 	@printf "$(SPACING)"
 ifneq ($(IS_EXEC),1)
 	@printf "💼 Linking $(OUTPUT)\n"
@@ -53,15 +53,19 @@ else
 	@$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)  
 endif
 
-$(DEPS):
-	@printf "$(SPACING)📑 Making '$@'\n"
-	@make -C ../$@ all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
+$(LIBS):
+	$(eval NUMBER_OF_SLASHES := $(shell echo $(shell pwd) | grep -o "/" | \wc -l))
+	$(eval NUMBER_OF_SLASHES := $(shell expr $(NUMBER_OF_SLASHES) + 1))
+	$(eval CURRENT_LIB := $(shell echo $@ | cut -d'/' -f$(NUMBER_OF_SLASHES)))
+	@printf "$(SPACING)📑 Making '$(CURRENT_LIB)', needed for $@\n"
+	@make -C ../$(CURRENT_LIB) all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(D_DIR)
 	@mkdir -p $(dir $@)
 	@mkdir -p $(dir $(D_DIR)/$*)
 	@printf "$(SPACING)🔨 $<\n"
 	@$(CC) $(DFLAGS) $(CFLAGS) -c "$(shell pwd)/$<" -o $@
+	@echo "$(shell pwd)/$<:" >> $(D_DIR)/$*.tmp.d
 	@# dumb fixes, see https://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 	@mv -f $(D_DIR)/$*.tmp.d $(D_DIR)/$*.d
 	@touch $@

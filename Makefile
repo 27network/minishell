@@ -6,41 +6,43 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/19 03:11:11 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/19 23:59:24 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= $(shell make -f config/config.mk print_PROJECT_NAME)
-VERSION			= $(shell make -f config/config.mk print_PROJECT_VERSION)
+MAKE			=	make --debug=none --no-print-directory
 
-CWD				?= $(shell pwd)
-SUBMODULES		= submodules
+NAME			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_NAME)
+VERSION			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_VERSION)
 
-LIBFT_DIR		= $(CWD)/third-party/libft
-LIBFT			= $(LIBFT_DIR)/build/output/libft.a
+CWD				?=	$(shell pwd)
+SUBMODULES		=	submodules
 
-CACHE_DIR		= .cache
-CACHE_DIR		:= $(addprefix $(shell pwd)/, $(CACHE_DIR))
+LIBFT_DIR		=	$(CWD)/third-party/libft
+LIBFT			=	$(LIBFT_DIR)/build/output/libft.a
 
-MAIN_MODULE		= cli
-MAIN_MODULE_OUT	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
-CLI_EXEC		= $(CWD)/$(MAIN_MODULE_OUT)
+CACHE_DIR		=	.cache
+CACHE_DIR		:=	$(addprefix $(shell pwd)/, $(CACHE_DIR))
 
-DEPENDENCY_TREE	= $(shell make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | tac - | uniq)
-D_FILES			:= $(foreach dep, $(DEPENDENCY_TREE), $(shell make --no-print-directory -C $(SUBMODULES)/$(dep) print_D_FILES CACHE_DIR="$(CACHE_DIR)"))
-_				:= $(foreach dep, $(DEPENDENCY_TREE), $(eval D_FILES += $(shell make --no-print-directory -C $(SUBMODULES)/$(dep) print_SELF_DEP CACHE_DIR="$(CACHE_DIR)")))
+MAIN_MODULE		=	cli
+MAIN_MODULE_OUT	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
+CLI_EXEC		=	$(CWD)/$(MAIN_MODULE_OUT)
 
-RM				= rm -rf
+DEPENDENCY_TREE	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | tac - | uniq)
+D_FILES			:=	$(foreach dep, $(DEPENDENCY_TREE), $(shell $(MAKE) -C $(SUBMODULES)/$(dep) print_D_FILES CACHE_DIR="$(CACHE_DIR)"))
+_				:=	$(foreach dep, $(DEPENDENCY_TREE), $(eval D_FILES += $(shell $(MAKE) -C $(SUBMODULES)/$(dep) print_SELF_DEP CACHE_DIR="$(CACHE_DIR)")))
+
+RM				=	rm -rf
 
 # Colors
-BLUE		:=	$(shell tput -Txterm setaf 4)
-BOLD_WHITE	:=	$(shell tput -Txterm setaf 7)
-RED			:=	$(shell tput -Txterm setaf 1)
-RESET		:=	$(shell tput -Txterm sgr0)
-GREEN		:=	$(shell tput -Txterm setaf 2)
+BLUE			:=	$(shell tput -Txterm setaf 4)
+BOLD_WHITE		:=	$(shell tput -Txterm setaf 7)
+RED				:=	$(shell tput -Txterm setaf 1)
+RESET			:=	$(shell tput -Txterm sgr0)
+GREEN			:=	$(shell tput -Txterm setaf 2)
 
-AUTHORS		=	$(shell paste -s -d ':' auteur | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
-VG_RUN		?=
+AUTHORS			=	$(shell paste -s -d ':' auteur | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
+VG_RUN			?=
 
 # multiline BANNER
 define BANNER
@@ -70,7 +72,7 @@ $(CACHE_DIR)/%:
 
 $(CLI_EXEC):
 	@printf "Making minishell\n"
-	@make --no-print-directory -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)"
+	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)"
 
 $(NAME): $(LIBFT) $(CLI_EXEC)
 	@printf "Linking $(CLI_EXEC) -> $(NAME)\n"
@@ -79,7 +81,7 @@ $(NAME): $(LIBFT) $(CLI_EXEC)
 
 $(LIBFT):
 	@printf "Making libft\n"
-	@make --no-print-directory -C $(LIBFT_DIR) -j 
+	@$(MAKE) -C $(LIBFT_DIR) -j 
 
 bonus:
 	@echo "Making $(NAME) bonus"

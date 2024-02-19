@@ -1,5 +1,15 @@
 # TODO list
 
+## Goals
+
+- [x] 0.0.x: Basic setup, submodules, Makefiles, dependencies
+- [x] 0.1.x: Shell-like input w/ readline, basic prompt
+- [ ] 0.2.x: Tokenizer, environment manager
+- [ ] 0.3.x: Execution structure
+- [ ] 0.4.x: Lexer & Parser (part 1)
+- [ ] 0.5.x: Builtins (part 1), manager, dynamic registration
+- [ ] 0.6.x: To be defined
+
 ## bordel
 
 - [x] Test system

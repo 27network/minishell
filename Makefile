@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/19 23:59:24 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/20 02:43:59 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,8 @@ MAIN_MODULE		=	cli
 MAIN_MODULE_OUT	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
 CLI_EXEC		=	$(CWD)/$(MAIN_MODULE_OUT)
 
-DEPENDENCY_TREE	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | tac - | uniq)
-D_FILES			:=	$(foreach dep, $(DEPENDENCY_TREE), $(shell $(MAKE) -C $(SUBMODULES)/$(dep) print_D_FILES CACHE_DIR="$(CACHE_DIR)"))
-_				:=	$(foreach dep, $(DEPENDENCY_TREE), $(eval D_FILES += $(shell $(MAKE) -C $(SUBMODULES)/$(dep) print_SELF_DEP CACHE_DIR="$(CACHE_DIR)")))
+DEPENDENCY_TREE	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) printdeptree | sed -e 's/ /\n/g' | tac - | awk '!x[$$0]++')
+D_FILES			:=	$(foreach dep, $(DEPENDENCY_TREE), $(shell $(MAKE) -C $(SUBMODULES)/$(dep) printdepfiles CACHE_DIR="$(CACHE_DIR)"))
 
 RM				=	rm -rf
 
@@ -58,6 +57,8 @@ endef
 _DISABLE_CLEAN_LOG := 0
 
 all:	 _banner $(NAME) 
+
+build:	all clean
 
 -include $(D_FILES)
 

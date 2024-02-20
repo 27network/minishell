@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/20 02:25:08 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/20 02:46:50 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,11 @@ all: $(OUTPUT)
 $(OUTPUT): $(SELF_DEP) $(LIBS) $(OBJ)
 	@printf "$(SPACING)"
 ifneq ($(IS_EXEC),1)
-	@printf "💼 Linking $(OUTPUT)\n"
+	@printf "💼 Linking library 'lib$(NAME).a'\n"
 	@$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
 else
-	@printf "🖥️  Linking $(OUTPUT)\n"
+	@#don't ask me why but we need 2 spaces here, unicode is a nice thing
+	@printf "🖥️  Linking executable '$(NAME)'\n"
 	@$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)  
 endif
 
@@ -115,4 +116,7 @@ ifdef DEPS
 	done
 endif
 
-.PHONY: all clean fclean re print_% clean_deps fclean_deps __disable_clean printdeptree
+printdepfiles:
+	@printf "$(D_FILES) $(SELF_DEP)\n"
+
+.PHONY: all clean fclean re print_% clean_deps fclean_deps __disable_clean printdeptree printdepfiles

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:16:25 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/19 00:34:50 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/20 02:24:36 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,20 @@ void	msh_shell_loop(t_minishell *msh)
 	char	*line;
 	char	*prompt;
 	int		ret;
+	bool	interactive;
 
-	if (!msh_is_interactive())
+	interactive = msh_is_interactive();
+	if (!interactive)
 		rl_prep_term_function = 0;
 	prompt = NULL;
 	while (true)
 	{
-		if (msh_is_interactive())
+		if (interactive)
 			prompt = msh_prompt_bash();
 		line = readline(prompt);
 		if (prompt)
 			free(prompt);
-		if (!line)
+		if (!line && interactive)
 			ft_printf("exit\n");
 		if (!line)
 			break ;

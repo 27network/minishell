@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/19 23:59:52 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/20 02:25:08 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ $(LIBS):
 	$(eval NUMBER_OF_SLASHES := $(shell echo $(shell pwd) | grep -o "/" | \wc -l))
 	$(eval NUMBER_OF_SLASHES := $(shell expr $(NUMBER_OF_SLASHES) + 1))
 	$(eval CURRENT_LIB := $(shell echo $@ | cut -d'/' -f$(NUMBER_OF_SLASHES)))
-	@printf "$(SPACING)📑 Making '$(CURRENT_LIB)'"
+	@printf "$(SPACING)📑 Making '$(CURRENT_LIB)'\n"
 	@make -C ../$(CURRENT_LIB) all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(D_DIR)

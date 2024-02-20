@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:19:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 02:16:54 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/20 21:11:48 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <ft/data/list.h>
+# include <ft/data/map.h>
 # include <ft/io.h>
 # include <ft/math.h>
 # include <ft/mem.h>
@@ -41,8 +42,12 @@ typedef struct s_minishell
 {
 	const char		*name;
 	t_launch_args	launch_args;
+	t_map			*env;
+
+	t_list			*free_buffer;
 }	t_minishell;
 
-int	msh_init(t_minishell *msh, int argc, char **argv, char **envp);
+int		msh_init(t_minishell *msh, int argc, char **argv, char **envp);
+void	msh_destroy(t_minishell *msh);
 
 #endif // MINISHELL_H

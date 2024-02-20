@@ -6,14 +6,14 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:10:25 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 10:32:12 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:03:17 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
 #include <msh/io/system.h>
 
-char	*msh_prompt_bash(void)
+char	*msh_prompt_bash(t_minishell *msh)
 {
 	char	*user;
 	char	*home;
@@ -32,10 +32,11 @@ char	*msh_prompt_bash(void)
 	if (!cwd)
 		cwd = ft_strdup("?");
 	if (ft_strchr(cwd, '/'))
-		format = ft_format("[%s@%s %s]%c ", user, msh_get_hostname(),
+		format = ft_format("[%s@%s %s]%c ", user, msh_get_hostname(msh),
 				ft_strrchr(cwd, '/') + 1, sep);
 	else
-		format = ft_format("[%s@%s %s]%c ", user, msh_get_hostname(), cwd, sep);
+		format = ft_format("[%s@%s %s]%c ", user, msh_get_hostname(msh),
+				cwd, sep);
 	free(cwd);
 	return (format);
 }

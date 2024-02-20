@@ -9,3 +9,6 @@
 *.out
 minishell
 dummyshell
+.vscode/
+*.nfs*
+.*nfs.

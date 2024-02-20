@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/19 03:08:24 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:00:29 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char *argv[], char *envp[])
 		msh_shell_loop(&minishell);
 	else
 		ret = msh_handle_opts(&minishell);
-	if (msh_get_hostname())
-		free(msh_get_hostname());
+	msh_destroy(&minishell);
 	return (ret);
 }

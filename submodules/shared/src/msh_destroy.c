@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   msh_destroy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 10:20:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 22:02:02 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/20 20:55:20 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/20 22:07:27 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#include <msh/minishell.h>
 
-char	*msh_get_hostname(t_minishell *msh);
+static void	msh_env_free(t_map_node *node)
+{
+	free(node->key);
+	free(node->value);
+	free(node);
+}
 
-#endif // SYSTEM_H
+void	msh_destroy(t_minishell *msh)
+{
+	ft_map_free(&msh->env, msh_env_free);
+	ft_lst_free(&msh->free_buffer, free);
+}

@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/20 02:43:59 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/20 02:50:52 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(CACHE_DIR)/%:
 	fi
 
 $(CLI_EXEC):
-	@printf "Making minishell\n"
+	@printf "\33[2K\rMaking $(NAME)\n"
 	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)"
 
 $(NAME): $(LIBFT) $(CLI_EXEC)
@@ -94,9 +94,11 @@ _fclean_prelude:
 clean:
 	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then echo "Cleaning $(NAME)"; fi
 	$(RM) $(CACHE_DIR)
+	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then $(MAKE) -C $(LIBFT_DIR) clean; fi 
 
 fclean:			_fclean_prelude clean
 	$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re:				fclean all
 

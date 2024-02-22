@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/20 02:50:52 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/22 06:27:02 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CWD				?=	$(shell pwd)
 SUBMODULES		=	submodules
 
 LIBFT_DIR		=	$(CWD)/third-party/libft
-LIBFT			=	$(LIBFT_DIR)/build/output/libft.a
+LIBFT			=	$(LIBFT_DIR)/libft.so
 
 CACHE_DIR		=	.cache
 CACHE_DIR		:=	$(addprefix $(shell pwd)/, $(CACHE_DIR))

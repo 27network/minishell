@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:06:42 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/19 01:52:25 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/22 21:47:24 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LDFLAGS			?=
 ifeq ($(IS_EXEC), 1)
 	OUTPUT		=	$(NAME)
 	LD 			=	$(CC)
-	LDFLAGS		+=	-lreadline
+	LDFLAGS		+=	-lreadline -lm
 else
 	OUTPUT		=	lib$(NAME).a
 	LD			=	ar
@@ -68,7 +68,7 @@ endif
 
 ifdef LIBFT_DIR
 ifeq ($(IS_EXEC), 1)
-	LDFLAGS		+=	$(LIBFT_DIR)/build/output/libft.a
+	LDFLAGS		+=	$(LIBFT_DIR)/libft.so 
 endif
 endif
 

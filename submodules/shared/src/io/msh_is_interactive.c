@@ -6,12 +6,12 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:02:54 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:04:47 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/24 05:20:55 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define MSH_CLI_UTILS
-#include <msh/cli/cli.h>
+#include <msh/io/system.h>
+#include <msh/externs.h>
 
 bool	msh_is_interactive(void)
 {

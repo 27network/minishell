@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:19:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 21:11:48 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/24 05:08:42 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_minishell
 	const char		*name;
 	t_launch_args	launch_args;
 	t_map			*env;
+
+	bool			interactive;
 
 	t_list			*free_buffer;
 }	t_minishell;

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 09:46:55 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/19 03:08:17 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/24 05:11:02 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 # define CLI_H
 
 # include <msh/minishell.h>
-
-# ifdef MSH_CLI_UTILS
-
-int		msh_fileno(FILE	*stream);
-bool	msh_is_interactive(void);
-
-# endif // MSH_CLI_UTILS
 
 #endif // CLI_H

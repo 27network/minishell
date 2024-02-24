@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:19:05 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 22:04:04 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/24 05:23:02 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 void	msh_shell_loop(t_minishell *msh);
 
 char	*msh_prompt_bash(t_minishell *msh);
+int		msh_handle_line(t_minishell *msh, char *line);
 
 #endif // SHELL_H

@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 06:49:07 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/18 18:23:32 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/24 05:23:35 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,11 @@ SRC			=	opt/msh_handle_opts.c \
 				opt/msh_opt_help.c \
 				opt/msh_opt_version.c \
 				runner/msh_run_file.c \
+				shell/processor/msh_handle_line.c \
 				shell/prompt/msh_prompt_bash.c \
 				shell/msh_shell_loop.c \
 				signal/msh_signal_handler.c \
 				signal/msh_signal_init.c \
-				utils/msh_fileno.c \
-				utils/msh_is_interactive.c \
 				cli.c
 
 include ../common.mk

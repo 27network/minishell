@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/22 06:27:02 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/24 05:40:31 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ RED				:=	$(shell tput -Txterm setaf 1)
 RESET			:=	$(shell tput -Txterm sgr0)
 GREEN			:=	$(shell tput -Txterm setaf 2)
 
-AUTHORS			=	$(shell paste -s -d ':' auteur | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
+AUTHORS			=	$(shell paste -s -d ':' author | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
 VG_RUN			?=
 
 # multiline BANNER

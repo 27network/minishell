@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_ast_tokens_free.c                              :+:      :+:    :+:   */
+/*   msh_ast_tkn_print.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 04:42:13 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 04:43:10 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/24 11:50:51 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/24 13:22:46 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/ast/tokenizer.h>
-#include <stdlib.h>
+#include <stdio.h>
 
-void	msh_ast_tokens_free(t_token_list *tokens)
+void	msh_ast_tkn_print(t_token *token)
 {
-	t_token_list	*tmp;
-
-	while (tokens)
-	{
-		tmp = tokens;
-		tokens = tokens->next;
-		free(tmp->value);
-		free(tmp);
-	}
+	printf("{ type: %s, value: %s, data: %p }\n", msh_ast_tkn_type(token->type),
+		token->value, token->data);
 }

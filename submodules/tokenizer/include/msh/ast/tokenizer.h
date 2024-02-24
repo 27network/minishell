@@ -6,50 +6,35 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 04:41:04 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:16:53 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-typedef enum e_token_type
-{
-	TKN_WORD,				// any sequence of characters
-	TKN_PIPE,				// '|'
-	TKN_SEMICOLON,			// ';'
-	TKN_AND_IF,				// '&&'
-	TKN_OR_IF,				// '||'
-	TKN_BACKGROUND,			// '&'
-	TKN_NEWLINE,			// '\n'
-	TKN_EOF,				// end of file
-	TKN_NUMBER,				// any sequence of digits
-	TKN_ASSIGNMENT_WORD,	// any sequence of characters of the form name=value
-	TKN_FD_REF,				// '&[n]'
-	TKN_REDIR_OUT,			// '>'
-	TKN_REDIR_OUT_CLOBBER,	// '>|'
-	TKN_REDIR_OUT_BOTH,		// '>&' or '&>'
-	TKN_REDIR_APPEND,		// '>>'
-	TKN_REDIR_IN,			// '<'
-	TKN_REDIR_HERE_DOC,		// '<<' or '<<-'
-	TKN_REDIR_HERE_STR,		// '<<<'
-	TKN_REDIR_WORD,			// '<>'
-	TKN_REDIR_FD,			// '<&'
-	//TKN_REDIR_FD_WORD,	// '<&[n]' or '<&[n]-'
-	TKN_LBRACE,				// '{'
-	TKN_RBRACE,				// '}'
-	TKN_UNKNOWN,			// any other character
-}	t_token_type;
+# include <ft/data/list.h>
+# include <msh/ast/tokens.h>
+# include <stdbool.h>
 
-typedef struct s_token_list
+typedef struct s_token
 {
 	t_token_type		type;
 	char				*value;
-	struct s_token_list	*next;
-	struct s_token_list	*prev;
-}	t_token_list;
+	void				*data;
+}	t_token;
 
-t_token_list	*msh_ast_tokenize(const char *input);
-void			msh_ast_tokens_free(t_token_list *list);
+t_list	*msh_ast_tokenize(const char *input);
+void	msh_ast_tkn_print(t_token *token);
+void	msh_ast_tkn_free(t_token *token);
+
+# ifdef TOKENIZER_TYPES
+
+t_token	*msh_ast_tokenize_string(const char *line, size_t *cursor,
+			t_list **tokens, bool expand);
+t_token	*msh_ast_tokenize_word(const char *line, size_t *cursor,
+			t_list **tokens);
+
+# endif // TOKENIZER_TYPES
 
 #endif // TOKENIZER_H

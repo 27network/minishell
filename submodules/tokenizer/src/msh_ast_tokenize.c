@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 18:17:23 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/25 19:33:22 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,7 @@
 #include <msh/ast/tokenizer.h>
 #include <msh/minishell.h>
 
-static t_token	*msh_ast_build_token(t_token_type type, void *data)
-{
-	t_token	*token;
-
-	token = ft_calloc(1, sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->type = type;
-	token->data = data;
-	return (token);
-}
-
+__attribute__((unused))
 static bool	msh_ast_append_tokens(
 		const char *line,
 		size_t *cursor,
@@ -33,6 +22,8 @@ static bool	msh_ast_append_tokens(
 ) {
 	t_token	*token;
 
+	(void) cursor;
+	(void) line;
 	token = NULL;
 	if (!token)
 		return (false);
@@ -55,15 +46,15 @@ static bool	msh_ast_try_tokenize(
 	if (c == '\'' || c == '\"')
 		token = msh_ast_tokenize_string(line, cursor, list, c == '\"');
 	else if (c == 0)
-		token = msh_ast_build_token(TKN_EOF, NULL);
+		token = msh_ast_tkn_new(TKN_EOF, NULL);
 	else if (c == '\n')
-		token = msh_ast_build_token(TKN_NEWLINE, NULL);
+		token = msh_ast_tkn_new(TKN_NEWLINE, NULL);
 	else if (c == ';')
-		token = msh_ast_build_token(TKN_SEMICOLON, NULL);
+		token = msh_ast_tkn_new(TKN_SEMICOLON, NULL);
 	else if (c == '(')
-		token = msh_ast_build_token(TKN_LPAREN, NULL);
+		token = msh_ast_tkn_new(TKN_LPAREN, NULL);
 	else if (c == ')')
-		token = msh_ast_build_token(TKN_RPAREN, NULL);
+		token = msh_ast_tkn_new(TKN_RPAREN, NULL);
 	else
 		token = msh_ast_tokenize_word(line, cursor, list);
 	if (!token)

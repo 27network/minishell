@@ -12,3 +12,5 @@ dummyshell
 .vscode/
 *.nfs*
 .*nfs.
+*.*swp*
+.*.swp*

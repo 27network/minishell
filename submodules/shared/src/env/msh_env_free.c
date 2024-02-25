@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_destroy.c                                      :+:      :+:    :+:   */
+/*   msh_env_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:55:20 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 22:45:59 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/20 22:46:23 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/20 22:53:16 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/minishell.h>
 #include <msh/env.h>
 
-void	msh_destroy(t_minishell *msh)
+void	msh_env_node_free(t_map_node *node)
 {
-	msh_env_free(msh);
-	ft_lst_free(&msh->free_buffer, free);
+	free(node->key);
+	free(node->value);
+	free(node);
+}
+
+void	msh_env_free(t_minishell *msh)
+{
+	ft_map_free(&msh->env, msh_env_node_free);
 }

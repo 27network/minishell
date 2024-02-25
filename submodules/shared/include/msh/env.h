@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_destroy.c                                      :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:55:20 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 22:45:59 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/02/20 22:38:10 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/02/21 00:37:07 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/minishell.h>
-#include <msh/env.h>
+#ifndef ENV_H
+# define ENV_H
 
-void	msh_destroy(t_minishell *msh)
-{
-	msh_env_free(msh);
-	ft_lst_free(&msh->free_buffer, free);
-}
+# include <msh/minishell.h>
+
+void	msh_env_free(t_minishell *msh);
+void	msh_env_node_free(t_map_node *node);
+void	msh_env_populate(t_minishell *msh);
+
+void	msh_env_defaults(t_minishell *msh);
+
+#endif // ENV_H

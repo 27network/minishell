@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:44:46 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 16:13:30 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:18:57 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_token	*msh_ast_tokenize_string(const char *line, size_t *cursor)
 	end = msh_find_string_end(line, start);
 	if (line[end] == '\0')
 		return (NULL);
-	str = ft_strndup(&line[start + 1], end - start - 1);
+	str = ft_strndup(&line[start], end - start + 1);
 	if (str == NULL)
 		return (NULL);
 	token = msh_ast_tkn_new(TKN_WORD, str);

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/25 19:43:59 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:13:20 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <ft/data/list.h>
 # include <msh/ast/tokens.h>
 # include <stdbool.h>
+
+# define TOKEN_DELIMITERS " \n;|&<>()$'\"\\"
+# define _LOWERCASE	"abcdefghijklmnopqrstuvwxyz"
+# define _UPPERCASE	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# define _DIGITS		"0123456789"
+# define SINGLE_TOKENS ";&|<>()\n "
 
 typedef struct s_token
 {
@@ -32,9 +38,11 @@ t_token	*msh_ast_tkn_new(t_token_type type, void *data);
 
 # ifdef TOKENIZER_TYPES
 
+t_token *msh_ast_tokenize_escape(const char *line, size_t *cursor);
+t_token	*msh_ast_tokenize_single(const char *line, size_t *cursor);
 t_token	*msh_ast_tokenize_string(const char *line, size_t *cursor);
-t_token	*msh_ast_tokenize_word(const char *line, size_t *cursor,
-			t_list **tokens);
+t_token	*msh_ast_tokenize_variable(const char *line, size_t *cursor);
+t_token	*msh_ast_tokenize_word(const char *line, size_t *cursor);
 
 # endif // TOKENIZER_TYPES
 

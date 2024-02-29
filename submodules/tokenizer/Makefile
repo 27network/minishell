@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:00:21 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/29 15:48:56 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/02/29 20:13:32 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,11 @@ DEPS		=	shared
 
 include ../common-prelude.mk
 
-SRC			=	types/msh_ast_tokenize_string.c \
+SRC			=	types/msh_ast_tokenize_escape.c \
+				types/msh_ast_tokenize_single.c \
+				types/msh_ast_tokenize_string.c \
+				types/msh_ast_tokenize_word.c \
+				types/msh_ast_tokenize_variable.c \
 				msh_ast_tkn_free.c \
 				msh_ast_tkn_new.c \
 				msh_ast_tkn_print.c \

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 05:22:17 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 16:20:02 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:00:55 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <msh/cli/shell.h>
 #include <msh/exec/exec.h>
 
+__attribute__((unused))
 static int	msh_debug_exec(t_minishell *msh, char *line)
 {
 	char	**array;
@@ -39,8 +40,10 @@ int	msh_handle_line(t_minishell *msh, char *line)
 	tokens = msh_ast_tokenize(line);
 	if (!tokens)
 		return (255);
-	printf("Tokens:\n");
+	printf("\nFinal token list:\n");
 	ft_lst_foreach(tokens, (void (*)(void *)) & msh_ast_tkn_print);
 	ft_lst_free(&tokens, (t_lst_dealloc) & msh_ast_tkn_free);
-	return (msh_debug_exec(msh, line));
+	// return (msh_debug_exec(msh, line));
+	(void)msh;
+	return (0);
 }

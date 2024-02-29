@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 19:49:41 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 20:22:13 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:35:12 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ static t_token	*msh_ast_tokenize_paran_type(const char *line, size_t *cursor)
 
 	c = line[*cursor];
 	if (c == '(')
-		return (msh_ast_tkn_new(TKN_PAREN_OPEN, NULL));
+		return (msh_ast_tkn_new(TKN_LPAREN, NULL));
 	else if (c == ')')
-		return (msh_ast_tkn_new(TKN_PAREN_CLOSE, NULL));
+		return (msh_ast_tkn_new(TKN_RPAREN, NULL));
 	else if (c == '[')
-		return (msh_ast_tkn_new(TKN_BRACKET_OPEN, NULL));
+		return (msh_ast_tkn_new(TKN_LBRACKET, NULL));
 	else if (c == ']')
-		return (msh_ast_tkn_new(TKN_BRACKET_CLOSE, NULL));
+		return (msh_ast_tkn_new(TKN_RBRACKET, NULL));
 	else if (c == '{')
-		return (msh_ast_tkn_new(TKN_BRACE_OPEN, NULL));
+		return (msh_ast_tkn_new(TKN_LBRACE, NULL));
 	else if (c == '}')
-		return (msh_ast_tkn_new(TKN_BRACE_CLOSE, NULL));
+		return (msh_ast_tkn_new(TKN_RBRACE, NULL));
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:49:21 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 19:57:21 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:28:21 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ static t_token	*msh_ast_try_tokenize_assign(char *str)
 	if (ft_strlen(str) == 0 || ft_strcmp(str, "=") == 0 || ft_isdigit(str[0]))
 		return (msh_ast_tkn_new(TKN_WORD, str));
 	start = 0;
-	while (str[start] && ft_strchr(_LOWERCASE _UPPERCASE _DIGITS "_", str[start]))
+	while (str[start] && ft_strchr(_LOWERCASE _UPPERCASE _DIGITS"_", str[start]))
 		start++;
 	return (NULL);
 }
 
-__attribute__((unused))
 static t_token	*msh_ast_try_tokenize_typed(char *str)
 {
 	if (ft_strchr(str, '=') != NULL)

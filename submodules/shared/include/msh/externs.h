@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 19:09:21 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 21:59:57 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:41:06 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
  * tgetnum, tgetstr, tgoto, tputs
  */
 
-# include <curses.h>
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -41,8 +40,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include <term.h>
-# include <termios.h>
 # include <unistd.h>
 
 #endif // EXTERNS_H

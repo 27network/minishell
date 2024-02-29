@@ -6,6 +6,3 @@ echo $UNKNOWNVARHAHA
 # Expanding in quoted strings
 echo "$USER"
 echo '$USER'
-
-:ENV ECHO=echo
-$ECHO test

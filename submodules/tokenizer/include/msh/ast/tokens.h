@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 16:22:48 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:51:27 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_token_type
 	TKN_REDIR_APPEND,		// '>>'
 	TKN_REDIR_IN,			// '<'
 	TKN_REDIR_HERE_DOC,		// '<<' or '<<-'
+	
 	TKN_REDIR_HERE_STR,		// '<<<'
 	TKN_REDIR_WORD,			// '<>'
 	TKN_REDIR_FD,			// '<&'
@@ -41,6 +42,8 @@ typedef enum e_token_type
 	TKN_RPAREN,				// ')'
 	TKN_LBRACE,				// '{'
 	TKN_RBRACE,				// '}'
+	TKN_LBRACKET,			// '['
+	TKN_RBRACKET,			// ']'
 	TKN_UNKNOWN,			// any other character
 }	t_token_type;
 

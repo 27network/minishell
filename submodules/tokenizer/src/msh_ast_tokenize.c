@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 20:13:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:16:49 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static bool	msh_ast_try_tokenize(
 	char	c;
 	t_token	*token;
 
-	printf("Trying to tokenize '%s' at %zu:\t", line + *cursor, *cursor);
 	c = line[*cursor];
 	if (c == '\\')
 		token = msh_ast_tokenize_escape(line, cursor);
@@ -38,11 +37,7 @@ static bool	msh_ast_try_tokenize(
 	else
 		token = msh_ast_tokenize_word(line, cursor);
 	if (!token)
-		printf("Failed");
-	printf("\n");
-	if (!token)
 		return (false);
-	msh_ast_tkn_print(token);
 	ft_lst_tadd(list, token);
 	return (true);
 }

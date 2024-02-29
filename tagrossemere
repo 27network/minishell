@@ -1,0 +1,14 @@
+author
+BUGS.md
+config
+LICENSE
+Makefile
+minishell
+README.md
+submodules
+tagrossemere
+test-executables
+tests
+third-party
+TODO.md
+valgrind.vsupp

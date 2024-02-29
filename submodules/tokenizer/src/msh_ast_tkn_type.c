@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:16:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 16:24:33 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:39:01 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ const char	*msh_ast_tkn_type(t_token_type type)
 	[TKN_REDIR_HERE_STR] = "TKN_REDIR_HERE_STR",
 	[TKN_REDIR_WORD] = "TKN_REDIR_WORD", [TKN_REDIR_FD] = "TKN_REDIR_FD",
 	[TKN_LPAREN] = "TKN_LPAREN", [TKN_RPAREN] = "TKN_RPAREN",
+	[TKN_LBRACKET] = "TKN_LBRACKET", [TKN_RBRACKET] = "TKN_RBRACKET",
 	[TKN_LBRACE] = "TKN_LBRACE", [TKN_RBRACE] = "TKN_RBRACE",
 	[TKN_UNKNOWN] = "TKN_UNKNOWN",
 	};

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:15:34 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/21 00:37:07 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:57:13 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ void	msh_env_defaults(t_minishell *msh)
 	}
 	else
 		ft_map_put(msh->env, _("SHLVL"), _("1"), &msh_env_node_free);
-	ft_map_put(msh->env, "SHLVL", "1", &msh_env_node_free);
-	ft_map_put(msh->env, "PWD", ft_strdup("/"), &msh_env_node_free);
-	ft_map_put(msh->env, "OLDPWD", ft_strdup("/"), &msh_env_node_free);
-	ft_map_put(msh->env, "HOME", ft_strdup("/"), &msh_env_node_free);
-	ft_map_put(msh->env, "PATH", ft_strdup("/bin:/usr/bin"), &msh_env_node_free);
+	// ft_map_put(msh->env, _("PWD"), _("/"), &msh_env_node_free);
+	// ft_map_put(msh->env, _("OLDPWD"), _("/"), &msh_env_node_free);
+	// ft_map_put(msh->env, _("HOME"), _("/"), &msh_env_node_free);
+	// ft_map_put(msh->env, _("PATH"), _("/bin:/usr/bin"), &msh_env_node_free);
 }

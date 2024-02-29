@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:55:20 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/20 22:45:59 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:55:50 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 void	msh_destroy(t_minishell *msh)
 {
 	msh_env_free(msh);
-	ft_lst_free(&msh->free_buffer, free);
+	if (msh->free_buffer)
+		ft_lst_free(&msh->free_buffer, free);
 }

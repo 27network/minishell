@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 16:00:04 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:23:25 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static bool	msh_ast_try_tokenize(
 	c = line[*cursor];
 	if (c == '\'' || c == '\"')
 		token = msh_ast_tokenize_string(line, cursor);
+	else if (c == ' ')
+		token = msh_ast_tkn_new(TKN_SPACE, NULL);
 	else if (c == 0)
 		token = msh_ast_tkn_new(TKN_EOF, NULL);
 	else if (c == '\n')

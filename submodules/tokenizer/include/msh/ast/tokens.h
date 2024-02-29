@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 17:42:39 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:22:48 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef enum e_token_type
 {
 	TKN_WORD = 0,			// any sequence of characters
+	TKN_SPACE,				// ' '
 	TKN_PIPE,				// '|'
 	TKN_SEMICOLON,			// ';'
 	TKN_AND_IF,				// '&&'

@@ -1,1 +1,3 @@
 echo \”That\'ll\ be\ \$4.96,\ please,\"\ said\ the\ cashier
+echo "\"That'll be \$4.96, please,\" said the cashier"
+echo '"That'\''ll be $4.96, please," said the cashier'

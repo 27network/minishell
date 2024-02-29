@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 05:22:17 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 13:27:06 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:20:02 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	msh_handle_line(t_minishell *msh, char *line)
 {
 	t_list	*tokens;
 
+	printf("Line:\n%s\n", line);
 	tokens = msh_ast_tokenize(line);
 	if (!tokens)
 		return (255);

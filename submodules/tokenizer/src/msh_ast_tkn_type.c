@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:16:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 17:42:53 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:24:33 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 const char	*msh_ast_tkn_type(t_token_type type)
 {
 	static const char	*types[] = {
-	[TKN_WORD] = "TKN_WORD", [TKN_PIPE] = "TKN_PIPE",
+	[TKN_WORD] = "TKN_WORD", [TKN_SPACE] = "TKN_SPACE", [TKN_PIPE] = "TKN_PIPE",
 	[TKN_SEMICOLON] = "TKN_SEMICOLON", [TKN_AND_IF] = "TKN_AND_IF",
 	[TKN_OR_IF] = "TKN_OR_IF", [TKN_BACKGROUND] = "TKN_BACKGROUND",
 	[TKN_NEWLINE] = "TKN_NEWLINE", [TKN_EOF] = "TKN_EOF",

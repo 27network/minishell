@@ -6,12 +6,13 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 21:16:49 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:45:43 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
+#include <msh/features.h>
 #include <msh/minishell.h>
 
 /**
@@ -26,7 +27,8 @@ static bool	msh_ast_try_tokenize(
 	t_token	*token;
 
 	c = line[*cursor];
-	if (c == '\\')
+	printf("Trying to tokenize '%s' at %zu\n", line + *cursor, *cursor);
+	if (c == '\\' && FEAT_TKN_ESCAPE)
 		token = msh_ast_tokenize_escape(line, cursor);
 	else if (c == '\'' || c == '\"')
 		token = msh_ast_tokenize_string(line, cursor);

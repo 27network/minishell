@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:49:21 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 21:28:21 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:38:09 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
 
+__attribute__((unused))
 static t_token	*msh_ast_try_tokenize_assign(char *str)
 {
 	size_t	start;
@@ -28,8 +29,8 @@ static t_token	*msh_ast_try_tokenize_assign(char *str)
 
 static t_token	*msh_ast_try_tokenize_typed(char *str)
 {
-	if (ft_strchr(str, '=') != NULL)
-		return (msh_ast_try_tokenize_assign(str));
+	// if (ft_strchr(str, '=') != NULL)
+	// 	return (msh_ast_try_tokenize_assign(str));
 	return (msh_ast_tkn_new(TKN_WORD, str));
 }
 

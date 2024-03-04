@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 20:40:27 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:25:40 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <msh/ast/tokens.h>
 # include <stdbool.h>
 
-# define TOKEN_DELIMITERS " \n;|&<>(){}[]$'\"\\"
+# define TOKEN_DELIMITERS " \t\n;|&<>(){}[]$'\"\\"
+
 # define _LOWERCASE	"abcdefghijklmnopqrstuvwxyz"
 # define _UPPERCASE	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 # define _DIGITS		"0123456789"

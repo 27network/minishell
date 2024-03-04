@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   opt.h                                              :+:      :+:    :+:   */
+/*   msh_env_tab_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 01:15:43 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 20:40:40 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/04 20:26:22 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/04 20:31:48 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPT_H
-# define OPT_H
+#include <stdlib.h>
 
-# include <msh/minishell.h>
+void	msh_env_tab_free(char **envp)
+{
+	size_t	i;
 
-int	msh_handle_opts(t_minishell *msh);
-
-# ifdef MSH_OPT_IMPL
-
-int	msh_opt_command(t_minishell *msh);
-int	msh_opt_help(t_minishell *msh);
-int	msh_opt_version(void);
-
-# endif // MSH_OPT_IMPL
-
-#endif // OPT_H
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}

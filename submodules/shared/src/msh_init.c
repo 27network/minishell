@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:45:29 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/25 16:38:11 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:32:51 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static uint64_t	msh_string_hash(void *data)
 
 int	msh_init(t_minishell *msh, int argc, char **argv, char **envp)
 {
+	ft_bzero(msh, sizeof(t_minishell));
 	msh->name = argv[0];
 	msh->launch_args.argc = argc;
 	msh->launch_args.argv = (const char **)argv;

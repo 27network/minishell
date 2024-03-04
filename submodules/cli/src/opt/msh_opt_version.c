@@ -6,21 +6,21 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:03:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 04:51:10 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:40:31 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
 #include <msh/cli/opt.h>
 
-void	msh_print_version(t_minishell *msh, int fd)
+void	msh_print_version(int fd)
 {
-	ft_dprintf(fd, "%s, version %s\n", msh->name, MSH_VERSION);
+	ft_dprintf(fd, "%s, version %s\n", MSH_DEFAULT_NAME, MSH_VERSION);
 }
 
-int	msh_opt_version(t_minishell *msh)
+int	msh_opt_version(void)
 {
-	msh_print_version(msh, 1);
+	msh_print_version(1);
 	ft_printf("Copyright (C) 2024 Seekrs\n");
 	ft_printf("License MIT: <https://opensource.org/licenses/MIT>\n\n");
 	ft_printf("This is free software; you are free to change and "

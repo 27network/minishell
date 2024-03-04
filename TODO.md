@@ -2,13 +2,13 @@
 
 ## Goals
 
-- [x] 0.0.x: Basic setup, submodules, Makefiles, dependencies
-- [x] 0.1.x: Shell-like input w/ readline, basic prompt
-- [ ] 0.2.x: Tokenizer, environment manager, bin hash table, `execve`
-- [ ] 0.3.x: Execution structure
-- [ ] 0.4.x: Lexer & Parser (part 1)
-- [ ] 0.5.x: Builtins (part 1), manager, dynamic registration
-- [ ] 0.6.x: To be defined
+- [x] v0.0.x: Basic setup, submodules, Makefiles, dependencies 
+- [x] v0.1.x: Shell-like input w/ readline, basic prompt
+- [ ] v0.2.x: Execution structure
+- [ ] v0.3.x: Tokenizer, environment manager, `execve`
+- [ ] v0.4.x: Lexer & Parser (part 1)
+- [ ] v0.5.x: Builtins (part 1), manager, dynamic registration
+- [ ] v0.6.x: To be defined
 
 ## bordel
 

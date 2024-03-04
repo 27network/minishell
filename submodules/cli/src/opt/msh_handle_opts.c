@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:14:55 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 04:51:22 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:40:45 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	msh_handle_opt(t_minishell *msh, const char *cmd)
 		if (ft_strncmp(cmd, "--help", 7) == 0)
 			return (msh_opt_help(msh));
 		else if (ft_strncmp(cmd, "--version", 10) == 0)
-			return (msh_opt_version(msh));
+			return (msh_opt_version());
 		else
 		{
 			msh_handle_invalid(msh, cmd, true);

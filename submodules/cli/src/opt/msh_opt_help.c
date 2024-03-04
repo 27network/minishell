@@ -6,14 +6,14 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:04 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 04:52:18 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:40:01 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
 #include <msh/cli/opt.h>
 
-void	msh_print_version(t_minishell *msh, int fd);
+void	msh_print_version(int fd);
 
 void	msh_print_help(t_minishell *msh, int fd)
 {
@@ -32,7 +32,7 @@ void	msh_print_help(t_minishell *msh, int fd)
 
 int	msh_opt_help(t_minishell *msh)
 {
-	msh_print_version(msh, 1);
+	msh_print_version(1);
 	msh_print_help(msh, 1);
 	return (0);
 }

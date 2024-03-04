@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:16:25 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 16:06:50 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:38:01 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	msh_shell_loop(t_minishell *msh)
 		if (prompt)
 			free(prompt);
 		if (!line && msh->interactive)
-			ft_printf("exit\n");
+			ft_dprintf(2, "exit\n");
 		if (!line)
 			break ;
 		if (*line)

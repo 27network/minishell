@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 17:15:19 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:38:25 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 
 # include <ft/data/list.h>
 # include <msh/ast/tokens.h>
+# include <msh/features.h>
 # include <stdbool.h>
 
-# define TOKEN_DELIMITERS " \t\n;|&<>(){}[]$'\"\\"
+# if FEAT_TKN_ESCAPE == 1
+#  define TOKEN_DELIMITERS " \t\n;|&<>(){}[]$'\"\\"
+# else
+#  define TOKEN_DELIMITERS " \t\n;|&<>(){}[]$'\""
+# endif
 
 # define _LOWERCASE	"abcdefghijklmnopqrstuvwxyz"
 # define _UPPERCASE	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"

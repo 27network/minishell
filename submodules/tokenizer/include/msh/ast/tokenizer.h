@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 15:25:40 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:15:19 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_token	*msh_ast_tkn_new(t_token_type type, void *data);
 
 # ifdef TOKENIZER_TYPES
 
-t_token *msh_ast_tokenize_escape(const char *line, size_t *cursor);
+t_token	*msh_ast_tokenize_escape(const char *line, size_t *cursor);
 t_token	*msh_ast_tokenize_single(const char *line, size_t *cursor);
 t_token	*msh_ast_tokenize_string(const char *line, size_t *cursor);
 t_token	*msh_ast_tokenize_variable(const char *line, size_t *cursor);

@@ -6,15 +6,15 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:49:21 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 15:38:09 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:09:23 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft/string.h>
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
+#include <msh/features.h>
 
-__attribute__((unused))
 static t_token	*msh_ast_try_tokenize_assign(char *str)
 {
 	size_t	start;
@@ -22,15 +22,16 @@ static t_token	*msh_ast_try_tokenize_assign(char *str)
 	if (ft_strlen(str) == 0 || ft_strcmp(str, "=") == 0 || ft_isdigit(str[0]))
 		return (msh_ast_tkn_new(TKN_WORD, str));
 	start = 0;
-	while (str[start] && ft_strchr(_LOWERCASE _UPPERCASE _DIGITS"_", str[start]))
+	while (str[start]
+		&& ft_strchr(_LOWERCASE _UPPERCASE _DIGITS "_", str[start]))
 		start++;
 	return (NULL);
 }
 
 static t_token	*msh_ast_try_tokenize_typed(char *str)
 {
-	// if (ft_strchr(str, '=') != NULL)
-	// 	return (msh_ast_try_tokenize_assign(str));
+	if (FEAT_TKN_INLINE_ENV_DEF && ft_strchr(str, '=') != NULL)
+		return (msh_ast_try_tokenize_assign(str));
 	return (msh_ast_tkn_new(TKN_WORD, str));
 }
 

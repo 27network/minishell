@@ -1,4 +1,4 @@
-name: Build minishell
+name: Norm check 
 
 on:
  push:
@@ -17,8 +17,7 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
-        cache: 'pip' # caching pip dependencies
     - name: Install norminette
       run: pip install -U norminette
     - name: Norm check 
-      run: norminette submodules | grep Error
+      run: norminette submodules

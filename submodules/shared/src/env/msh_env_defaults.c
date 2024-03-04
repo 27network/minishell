@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:15:34 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 15:57:13 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:39:07 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	msh_env_defaults(t_minishell *msh)
 {
 	char	*shlvl;
 
+	msh_env_populate(msh);
 	shlvl = ft_map_get(msh->env, "SHLVL");
 	if (shlvl)
 	{
 		shlvl = ft_lltoa(ft_atoll(shlvl) + 1);
 		ft_map_put(msh->env, _("SHLVL"), shlvl, &msh_env_node_free);
-		free(shlvl);
 	}
 	else
 		ft_map_put(msh->env, _("SHLVL"), _("1"), &msh_env_node_free);

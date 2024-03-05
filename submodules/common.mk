@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/20 21:37:35 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/05 01:13:45 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,12 @@ ifndef D_DIR
 	_ = $(error D_DIR is not set)
 endif
 
+ifeq ($(EXTRA_DEBUG), 1)
+ifeq ($(IS_EXEC), 1)
+	LDFLAGS		+=	-v -Wl,--verbose
+endif
+endif
+
 SRC				:=	$(addprefix $(SRC_DIR)/, $(SRC))
 OBJ				:=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 D_FILES			:=	$(SRC:$(SRC_DIR)/%.c=$(D_DIR)/%.d)
@@ -47,11 +53,19 @@ $(OUTPUT): $(SELF_DEP) $(LIBS) $(OBJ)
 	@printf "$(SPACING)"
 ifneq ($(IS_EXEC),1)
 	@printf "💼 Linking library 'lib$(NAME).a'\n"
+ifeq ($(EXTRA_DEBUG), 1)
+	$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
+else
 	@$(LD) $(LDFLAGS) $(OUTPUT) $(OBJ) 
+endif
 else
 	@#don't ask me why but we need 2 spaces here, unicode is a nice thing
 	@printf "🖥️  Linking executable '$(NAME)'\n"
+ifeq ($(EXTRA_DEBUG), 1)
+	$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)
+else
 	@$(LD) $(OBJ) -o $(OUTPUT) $(LDFLAGS)  
+endif
 endif
 
 $(LIBS):
@@ -65,7 +79,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(D_DIR)
 	@mkdir -p $(dir $@)
 	@mkdir -p $(dir $(D_DIR)/$*)
 	@printf "$(SPACING)🔨 $<\n"
+ifeq ($(EXTRA_DEBUG), 1)
+	$(CC) $(DFLAGS) $(CFLAGS) -c "$(shell pwd)/$<" -o $@
+else
 	@$(CC) $(DFLAGS) $(CFLAGS) -c "$(shell pwd)/$<" -o $@
+endif
 	@echo "$(shell pwd)/$<:" >> $(D_DIR)/$*.tmp.d
 	@# dumb fixes, see https://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 	@mv -f $(D_DIR)/$*.tmp.d $(D_DIR)/$*.d

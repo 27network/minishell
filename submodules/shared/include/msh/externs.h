@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 19:09:21 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 21:41:06 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/05 01:23:06 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -41,5 +39,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 #endif // EXTERNS_H

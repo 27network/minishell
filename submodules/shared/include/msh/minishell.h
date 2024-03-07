@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:19:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 05:08:42 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 06:22:47 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,20 @@ typedef struct s_launch_args
 	const char	**envp;
 }	t_launch_args;
 
+typedef struct s_msh_flags
+{
+	bool	print_ast;
+	bool	print_pipelines;
+	bool	print_tokens;
+}	t_msh_flags;
+
 typedef struct s_minishell
 {
 	const char		*name;
 	t_launch_args	launch_args;
-	t_map			*env;
+	t_msh_flags		flags;
 
+	t_map			*env;
 	bool			interactive;
 
 	t_list			*free_buffer;

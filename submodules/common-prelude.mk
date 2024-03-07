@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:06:42 by kiroussa          #+#    #+#              #
-#    Updated: 2024/02/22 21:47:24 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/07 04:12:34 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,8 @@ ifdef LIBFT_DIR
 	CFLAGS		+=	-I$(LIBFT_DIR)/include
 endif
 
-CFLAGS			+=	-DMINISHELL_DEFAULT_NAME="$(PROJECT_NAME)"
-CFLAGS			+=	-DMINISHELL_VERSION="$(PROJECT_VERSION)"
+CFLAGS			+=	-DMSH_DEFAULT_NAME="\"$(PROJECT_NAME)\""
+CFLAGS			+=	-DMSH_VERSION="\"$(PROJECT_VERSION)\""
 
 ifdef DEPS
 	TMPDEPDECL 	:= $(DEPS:%=-I$(shell pwd | xargs dirname)/%/include)

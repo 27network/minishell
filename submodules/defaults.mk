@@ -6,12 +6,12 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 05:36:04 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/05 01:26:52 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/07 04:12:56 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 PROJECT_NAME	?= minishell
-PROJECT_VERSION	?= 0.1.6
+PROJECT_VERSION	?= 0.1.7
 
 SRC_DIR			?= src
 INCLUDE_DIR		?= include

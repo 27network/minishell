@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 15:45:43 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 04:18:24 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static bool	msh_ast_try_tokenize(
 	t_token	*token;
 
 	c = line[*cursor];
-	printf("Trying to tokenize '%s' at %zu\n", line + *cursor, *cursor);
 	if (c == '\\' && FEAT_TKN_ESCAPE)
 		token = msh_ast_tokenize_escape(line, cursor);
 	else if (c == '\'' || c == '\"')
@@ -66,8 +65,6 @@ t_list	*msh_ast_tokenize(const char *input)
 		if (loops++ > threshold)
 			errored = true;
 	}
-	if (errored)
-		printf("Errored (at '%s':%zu)\n", input + cursor, cursor);
 	if (errored)
 		ft_lst_free(&list, (t_lst_dealloc) msh_ast_tkn_free);
 	return (list);

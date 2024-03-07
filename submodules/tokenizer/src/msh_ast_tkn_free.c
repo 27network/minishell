@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_ast_tkns_free.c                                :+:      :+:    :+:   */
+/*   msh_ast_tkn_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 04:42:13 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 13:19:40 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 06:39:26 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@ void	msh_ast_tkn_free(t_token *token)
 {
 	if (!token)
 		return ;
-	if (token->value)
-		free(token->value);
 	if (token->data)
+	{
+		if (token->type == TKN_ASSIGNMENT_WORD)
+		{
+			free(((t_tkn_assign_data *)token->data)->key);
+			free(((t_tkn_assign_data *)token->data)->value);
+		}
 		free(token->data);
+	}
 	free(token);
 }

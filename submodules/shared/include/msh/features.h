@@ -6,12 +6,18 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:58:04 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 06:11:38 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 06:45:04 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FEATURES_H
 # define FEATURES_H
+
+// lol overrides
+// TODO: remove this
+# define BONUS_MSH 1
+# define EXTRA_MSH 1
+# define BONUS_42SH 1
 
 // Defaults
 

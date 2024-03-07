@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 17:11:13 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 06:43:23 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,11 @@ typedef enum e_token_type
 }	t_token_type;
 
 const char	*msh_ast_tkn_type(t_token_type type);
+
+typedef struct s_tkn_assign_data
+{
+	char	*key;
+	char	*value;
+}	t_tkn_assign_data;
 
 #endif // TOKENS_H

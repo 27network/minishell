@@ -6,26 +6,56 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:49:21 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 17:09:23 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 06:51:18 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/mem.h>
 #include <ft/string.h>
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
 #include <msh/features.h>
+#include <stdlib.h>
+
+static t_token	*msh_ast_build_assignment(char *key, char *value)
+{
+	t_tkn_assign_data	*data;
+
+	data = ft_calloc(1, sizeof(t_tkn_assign_data));
+	if (!data)
+	{
+		free(key);
+		free(value);
+		return (NULL);
+	}
+	data->key = key;
+	data->value = value;
+	return (msh_ast_tkn_new(TKN_ASSIGNMENT_WORD, data));
+}
 
 static t_token	*msh_ast_try_tokenize_assign(char *str)
 {
-	size_t	start;
+	size_t				end;
+	char				*key;
+	char				*value;
 
 	if (ft_strlen(str) == 0 || ft_strcmp(str, "=") == 0 || ft_isdigit(str[0]))
 		return (msh_ast_tkn_new(TKN_WORD, str));
-	start = 0;
-	while (str[start]
-		&& ft_strchr(_LOWERCASE _UPPERCASE _DIGITS "_", str[start]))
-		start++;
-	return (NULL);
+	end = 0;
+	while (str[end] && str[end] != '=')
+		end++;
+	key = ft_strndup(str, end);
+	if (key == NULL)
+		free(str);
+	if (key == NULL)
+		return (NULL);
+	value = ft_strdup(&str[end + 1]);
+	free(str);
+	if (value == NULL)
+		free(key);
+	if (value == NULL)
+		return (NULL);
+	return (msh_ast_build_assignment(key, value));
 }
 
 static t_token	*msh_ast_try_tokenize_typed(char *str)

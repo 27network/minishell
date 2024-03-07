@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 05:22:17 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 04:09:51 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 09:04:52 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <msh/cli/shell.h>
 #include <msh/exec/exec.h>
 
-__attribute__((unused))
 static int	msh_debug_exec(t_minishell *msh, char *line)
 {
 	char	**array;
@@ -27,7 +26,10 @@ static int	msh_debug_exec(t_minishell *msh, char *line)
 	ret = msh_exec_simple(msh, array);
 	i = 0;
 	while (array[i])
-		free(array[i++]);
+	{
+		free(array[i]);
+		i++;
+	}
 	free(array);
 	return (ret);
 }

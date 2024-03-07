@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 06:39:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 08:12:12 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <stdbool.h>
 
 # if FEAT_TKN_ESCAPE == 1
-#  define TOKEN_DELIMITERS " \t\n;|&<>(){}[]$'\"\\"
+#  define TOKEN_DELIMITERS " =\t\n;|&<>(){}[]$'\"\\"
 # else
-#  define TOKEN_DELIMITERS " \t\n;|&<>(){}[]$'\""
+#  define TOKEN_DELIMITERS " =\t\n;|&<>(){}[]$'\""
 # endif
 
 # define _LOWERCASE	"abcdefghijklmnopqrstuvwxyz"

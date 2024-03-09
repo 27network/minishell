@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 09:57:02 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:08:22 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ static bool	msh_check_directory(const char *path)
 
 static void	msh_exec_error(t_minishell *msh, int err, char *name)
 {
-	if (msh_check_directory(name))
-		ft_dprintf(2, "%s: %s: %s\n", msh->name, name, strerror(EISDIR));
-	else if (ft_strchr(name, '/'))
-		ft_dprintf(2, "%s: %s: %s\n", msh->name, name, strerror(err));
+	if (ft_strchr(name, '/'))
+	{
+		if (msh_check_directory(name))
+			ft_dprintf(2, "%s: %s: %s\n", msh->name, name, strerror(EISDIR));
+		else
+			ft_dprintf(2, "%s: %s: %s\n", msh->name, name, strerror(err));
+	}
 	else
 		ft_dprintf(2, "%s: command not found\n", name);
 }
@@ -89,10 +92,13 @@ int	msh_exec_simple(t_minishell *msh, char **args)
 
 	status = -1;
 	env = msh_env_tab(msh);
-	path = msh_resolve_path(msh, args[0]);
+	argv0 = args[0];
+	if (argv0[0] != '.' && argv0[0] != '/')
+		path = msh_resolve_path(msh, argv0);
+	else
+		path = ft_strdup(argv0);
 	if (path)
 	{
-		argv0 = args[0];
 		args[0] = path;
 		status = msh_exec(msh, args, env);
 		args[0] = argv0;

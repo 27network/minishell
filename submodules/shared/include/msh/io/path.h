@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 02:25:14 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 08:33:59 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/09 23:57:04 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,12 @@
  *					if not found. NULL is returned if a memory error happens.
  */
 char	*msh_resolve_path(t_minishell *msh, const char *filename);
+
+/**
+ * This function checks if the given path is to a directory.
+ *
+ * @param path The path to check.
+ */
+bool	msh_is_directory(const char *path);
 
 #endif // PATH_H

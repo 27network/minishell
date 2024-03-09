@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 08:23:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:18:25 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef enum e_token_type
 	TKN_RBRACE,				// '}'
 	TKN_LBRACKET,			// '['
 	TKN_RBRACKET,			// ']'
-	TKN_ASSIGNMENT,			// '='
-	_TKN_SEP,				// separator between Pure and Compound tokens
+	TKN_ASSIGN,				// '='
+	____TKN_SEP,			// separator between Pure and Compound tokens
 	TKN_ASSIGNMENT_WORD,	// any sequence of characters of the form name=value
 	TKN_AND_IF,				// '&&'
 	TKN_OR_IF,				// '||'

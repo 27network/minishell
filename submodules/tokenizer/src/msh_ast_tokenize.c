@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 08:24:43 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/09 23:38:01 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static bool	msh_ast_try_tokenize(
 	return (true);
 }
 
-t_list	*msh_ast_tokenize(const char *input, char **error)
+t_list	*msh_ast_tokenize(const char *input)
 {
 	t_list	*list;
 	size_t	cursor;

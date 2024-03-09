@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 03:36:44 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 19:38:25 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/07 06:39:03 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 typedef struct s_token
 {
 	t_token_type		type;
-	char				*value;
 	void				*data;
 }	t_token;
 

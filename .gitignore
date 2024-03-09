@@ -14,3 +14,7 @@ dummyshell
 .*nfs.
 *.*swp*
 .*.swp*
+
+minishell-tester
+minishell_tester
+42sh*

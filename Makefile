@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/09 16:40:24 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/09 16:53:48 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ RED				:=	$(shell tput -Txterm setaf 1)
 RESET			:=	$(shell tput -Txterm sgr0)
 GREEN			:=	$(shell tput -Txterm setaf 2)
 
-AUTHORS			=	$(shell paste -s -d ':' author | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
+AUTHORS			=	$(shell paste -s -d ':' config/author | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
 VG_RUN			?=
 
 # multiline BANNER
@@ -103,6 +103,6 @@ fclean:			_fclean_prelude clean
 re:				fclean all
 
 valgrind:		$(NAME)
-	valgrind --suppressions=valgrind.vsupp -s --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(VG_RUN)
+	valgrind --suppressions=config/valgrind.vsupp -s --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(VG_RUN)
 
 .PHONY:			all bonus clean fclean re valgrind _fclean_prelude _banner

@@ -19,5 +19,7 @@ jobs:
         python-version: '3.10'
     - name: Install norminette
       run: pip install -U norminette
+    - name: Print norminette version
+      run: norminette --version
     - name: Norm check 
-      run: norminette submodules
+      run: norminette ./submodules

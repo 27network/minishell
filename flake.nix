@@ -11,17 +11,16 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    stdenv = pkgs.stdenvAdapters.useMoldLinker pkgs.clang17Stdenv;
   in {
-    devShells.${system}.default =
-      (pkgs.mkShell.override {
-        stdenv = pkgs.stdenvAdapters.useMoldLinker pkgs.clang17Stdenv;
-      }) {
-        name = "minishell";
-        packages = with pkgs; [
-          readline
-          valgrind
-        ];
-      };
+    devShells.${system}.default = (pkgs.mkShell.override {inherit stdenv;}) {
+      name = "minishell";
+      packages = with pkgs; [
+        readline
+        valgrind
+      ];
+    };
   };
 }
 # vim: ts=2 sw=2 et
+

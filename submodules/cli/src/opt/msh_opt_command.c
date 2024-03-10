@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 08:56:10 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:22:46 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	msh_opt_command(t_minishell *msh)
 	{
 		ft_dprintf(2, "%s: -c: option requires an argument\n",
 			msh->launch_args.argv[0]);
+		msh_destroy(msh);
 		exit(2);
 	}
 	cmd = msh->launch_args.argv[c_flag_index + 1];

@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:00:21 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/04 20:32:38 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/09 23:58:15 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC			=	env/msh_env_defaults.c \
 				env/msh_env_tab_free.c \
 				io/msh_fileno.c \
 				io/msh_get_hostname.c \
+				io/msh_is_directory.c \
 				io/msh_is_interactive.c \
 				io/msh_resolve_path.c \
 				msh_destroy.c \

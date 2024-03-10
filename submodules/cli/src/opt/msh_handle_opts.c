@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:14:55 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 06:23:29 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:24:04 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	msh_handle_invalid(t_minishell *msh, const char *flag, bool is_long)
 	else
 		ft_dprintf(2, "%s: -%c: %s\n", msh->name, flag[0], "invalid option");
 	msh_print_help(msh, 2);
+	msh_destroy(msh);
 	exit(2);
 }
 
@@ -52,7 +53,7 @@ static void	msh_handle_opt(t_minishell *msh, const char *cmd)
 	if (ft_strncmp(cmd, "--", 2) == 0)
 	{
 		if (ft_strcmp(cmd, "--version") == 0)
-			msh_opt_version();
+			msh_opt_version(msh);
 		else if (ft_strcmp(cmd, "--print-ast") == 0)
 			msh->flags.print_ast = true;
 		else if (ft_strcmp(cmd, "--print-pipelines") == 0)

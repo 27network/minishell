@@ -6,12 +6,36 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:41:40 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 07:31:53 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:24:53 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/minishell.h>
 #include <msh/io/path.h>
+
+static int	msh_resolve_fd(t_minishell *msh, const char *filename, char **name)
+{
+	int		fd;
+	char	*resolved;
+
+	*name = NULL;
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		resolved = msh_resolve_path(msh, filename);
+		if (resolved)
+		{
+			fd = open(resolved, O_RDONLY);
+			if (fd >= 0)
+				*name = resolved;
+			else
+				free(resolved);
+		}
+	}
+	else
+		*name = ft_strdup((char *)filename);
+	return (fd);
+}
 
 /**
  * TODO: add those checks: 
@@ -20,18 +44,19 @@
  */
 void	msh_run_file(t_minishell *msh, const char *filename)
 {
-	char	*resolved;
+	char		*resolved;
+	int			fd;
 
-	resolved = msh_resolve_path(msh, filename);
-	if (!resolved)
+	fd = msh_resolve_fd(msh, filename, &resolved);
+	if (fd < 0)
 	{
-		ft_dprintf(2, "%s: %s: %s\n", msh->name, filename, "No such file or "
-			"directory");
+		ft_dprintf(2, "%s: %s: %s\n", msh->name, filename, strerror(errno));
+		if (resolved)
+			free(resolved);
+		msh_destroy(msh);
 		exit(127);
 	}
-	msh->name = resolved;
-	ft_dprintf(2, "%s: %s: %s\n", msh->name, resolved, "running files or "
-		"scripts is not implemented yet");
-	free(resolved);
-	exit(2);
+	close(fd);
+	msh_destroy(msh);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 18:51:19 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/09 23:57:53 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,11 @@
 #include <msh/io/path.h>
 #include <errno.h>
 
-/**
- * This function checks if the given path is to a directory, which would result
- * in an error.
- * 
- * Since we don't have access to traditional stat or lstat, we'll use open in
- * a read-write mode first to check if errno is set to EISDIR. If it is, we'll
- * return an error. If it's not, we'll close the file descriptor try to reopen
- * it in read-only mode.
- *
- * @param path The path to check.
- */
-static bool	msh_check_directory(const char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDWR);
-	if (fd < 0)
-	{
-		if (errno == EISDIR)
-			return (true);
-		fd = open(path, O_RDONLY);
-		if (fd < 0)
-			return (false);
-		(void) close(fd);
-		return (false);
-	}
-	(void) close(fd);
-	return (false);
-}
-
 static void	msh_exec_error(t_minishell *msh, int err, char *name)
 {
 	if (ft_strchr(name, '/'))
 	{
-		if (msh_check_directory(name))
+		if (msh_is_directory(name))
 			ft_dprintf(2, "%s: %s: %s\n", msh->name, name, strerror(EISDIR));
 		else
 			ft_dprintf(2, "%s: %s: %s\n", msh->name, name, strerror(err));

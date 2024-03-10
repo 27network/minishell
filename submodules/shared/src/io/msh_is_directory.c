@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   opt.h                                              :+:      :+:    :+:   */
+/*   msh_is_directory.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 01:15:43 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:23:57 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/09 23:57:14 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/09 23:57:34 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPT_H
-# define OPT_H
+#include <errno.h>
+#include <fcntl.h>
+#include <stdbool.h>
+#include <unistd.h>
 
-# include <msh/minishell.h>
+bool	msh_is_directory(const char *path)
+{
+	int	fd;
 
-# define RETURN_SUCCESS 0
-# define RETURN_INVALID_OPT 2
-
-void	msh_handle_opts(t_minishell *msh);
-
-# ifdef MSH_OPT_IMPL
-
-void	msh_opt_command(t_minishell *msh);
-void	msh_opt_help(t_minishell *msh);
-void	msh_opt_version(t_minishell *msh);
-
-# endif // MSH_OPT_IMPL
-
-#endif // OPT_H
+	fd = open(path, O_RDWR);
+	if (fd < 0)
+		return (errno == EISDIR);
+	(void) close(fd);
+	return (false);
+}

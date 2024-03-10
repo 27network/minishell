@@ -2,14 +2,79 @@
 
 ## Goals
 
-- [x] v0.0.x: Basic setup, submodules, Makefiles, dependencies 
-- [x] v0.1.x: Shell-like input w/ readline, basic prompt
-- [ ] v0.2.x: Execution structure
-- [ ] v0.3.x: Tokenizer, environment manager, `execve`
-- [ ] v0.4.x: Lexer & Parser (part 1)
-- [ ] v0.5.x: Builtins (part 1), manager, dynamic registration
-- [ ] v0.6.x: To be defined
+- [x] Basic setup, submodules, Makefiles, dependencies 
+- [x] Shell-like input w/ readline, basic prompt
+- [ ] Execution structure
+- [x] Tokenizer, environment manager, `execve`
+- [ ] Lexer & Parser (part 1)
+- [ ] Builtins (part 1), manager, dynamic registration
+- [ ] To be defined
 
+### Minishell goals
+
+- Basic goals
+  - [x] Makefile structure, compilation, dependencies as submodules
+  - [x] Have a prompt in interactive mode
+  - [x] Utilize readline's history module
+- Execution goals
+  - [x] Find executable using the `PATH` environment variable
+  - [x] Not interpret unclosed quotes or special characters such as `\` or `;`
+  - Handle single and double quotes as well as their interpretation
+    - [x] Parsing part
+    - [ ] Execution part (expansion)
+  - Implement redirections
+    - [ ] In
+    - [ ] Out
+    - [ ] Out-append
+    - [ ] Here-docs
+  - [ ] Implement pipes
+  - [ ] Handle environment variables
+    - [ ] Handle `$?`
+  - Signal handling
+    - [x] Interactive mode
+    - [ ] Passed down to subprocesses
+  - Builtins
+    - [ ] `echo` with `-n`
+    - [ ] `cd` with a relative or absolute path
+      - [ ] Handle `~`
+      - [ ] Handle `-`
+    - [ ] `pwd` no flags
+    - [ ] `export` no flags
+    - [ ] `unset` no flags
+    - [ ] `env` no flags or arg
+    - [ ] `exit` no flags
+- Bonus
+  - [ ] Implement `&&`, `||`, and `()`
+  - [ ] Wildcards `*` for the current directory
+    - [ ] Handle `?` and `[]`
+
+<!--
+### 42sh
+
+- Requirements
+  - Redirections
+    - [ ] Aggregators `>&` and `<&`
+  - [ ] Separators `;`
+  - [ ] `cd`, `echo`, `exit`, and `type` builtins
+- Mandatory
+  - [ ] `set` and `unset` builtins
+  - [ ] Parameter expansion `${...}`
+  - [ ] Job control
+    - [ ] `jobs`, `bg`, `fg`
+    - [ ] `&` operator
+  - [ ] Monitoring of all signals
+  - [ ] Each builtin must have the POSIX standard options, except for explicit case as `set` or `unset`
+
+- Bonuses are another story \o/
+  - [x] Inhibitors `\` for quotes and double-quotes
+  - Pattern matching (globbing)
+    - [ ] `*`
+    - [ ] `?`
+    - [ ] `[a-Z]`
+    - [ ] `!`
+    - [ ]
+
+-->
 ## bordel
 
 - [x] Test system

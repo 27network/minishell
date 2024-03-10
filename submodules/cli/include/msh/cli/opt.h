@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:43 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 04:02:51 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:23:57 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	msh_handle_opts(t_minishell *msh);
 
 void	msh_opt_command(t_minishell *msh);
 void	msh_opt_help(t_minishell *msh);
-void	msh_opt_version(void);
+void	msh_opt_version(t_minishell *msh);
 
 # endif // MSH_OPT_IMPL
 

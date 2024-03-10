@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:03:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 04:02:08 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:23:49 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	msh_print_version(int fd)
 	ft_dprintf(fd, "%s, version %s\n", MSH_DEFAULT_NAME, MSH_VERSION);
 }
 
-void	msh_opt_version(void)
+void	msh_opt_version(t_minishell *msh)
 {
 	msh_print_version(1);
 	ft_printf("Copyright (C) 2024 Seekrs\n");
@@ -26,5 +26,6 @@ void	msh_opt_version(void)
 	ft_printf("This is free software; you are free to change and "
 		"redistribute it.\n");
 	ft_printf("There is NO WARRANTY, to the extent permitted by law.\n");
+	msh_destroy(msh);
 	exit(0);
 }

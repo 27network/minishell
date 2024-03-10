@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:04 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 06:23:38 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:24:07 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	msh_opt_help(t_minishell *msh)
 			"builtin commands.\n", argv0);
 	printf("\n%s home page: <https://github.com/27network/minishell>\n",
 		MSH_DEFAULT_NAME);
+	msh_destroy(msh);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:41:40 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 00:12:38 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:24:53 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	msh_resolve_fd(t_minishell *msh, const char *filename, char **name)
 	int		fd;
 	char	*resolved;
 
+	*name = NULL;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -45,29 +46,17 @@ void	msh_run_file(t_minishell *msh, const char *filename)
 {
 	char		*resolved;
 	int			fd;
-	struct stat	finfo;
 
-	msh->name = NULL;
-	fd = msh_resolve_fd(msh, filename, &msh->name);
-	if (fd < 0 || fstat(fd, &finfo) < 0)
+	fd = msh_resolve_fd(msh, filename, &resolved);
+	if (fd < 0)
 	{
-		if (fd >= 0)
-			close(fd);
-		if (msh->name)
-			free(msh->name);
-		ft_dprintf(2, "%s: %s: %m\n", msh->name, filename);
-		exit(126);
+		ft_dprintf(2, "%s: %s: %s\n", msh->name, filename, strerror(errno));
+		if (resolved)
+			free(resolved);
+		msh_destroy(msh);
+		exit(127);
 	}
-	if (S_ISDIR(finfo.st_mode))
-	{
-		ft_dprintf(2, "%s: %s: %s\n", msh->name, filename, strerror(EISDIR));
-		exit(126);
-	}
-	if (!S_ISREG(finfo.st_mode))
-	{
-		ft_dprintf(2, "%s: %s: %s\n", msh->name, filename, strerror(EINVAL));
-		exit(126);
-	}
-	free(msh->name);
+	close(fd);
+	msh_destroy(msh);
 	exit(0);
 }

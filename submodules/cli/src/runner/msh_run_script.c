@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 03:06:45 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 03:17:41 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:35:22 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 int	msh_run_script(t_minishell *msh, int fd, const char *filename)
 {
-	printf("msh_run_script\n");
-	(void)msh;
+	printf("%s: %s: running scripts isn't supported.\n", msh->name, filename);
 	(void)fd;
-	(void)filename;
-	return (0);
+	return (121);
 }

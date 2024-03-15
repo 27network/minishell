@@ -6,11 +6,12 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:44:46 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 19:18:57 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:53:09 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft/string.h>
+#include <msh/features.h>
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
 #include <stdlib.h>
@@ -24,7 +25,7 @@ static size_t	msh_find_string_end(const char *line, size_t start)
 	start_char = line[start];
 	while (line[end])
 	{
-		if (line[end] == '\\')
+		if (line[end] == '\\' && FEAT_TKN_ESCAPE)
 			end++;
 		else if (line[end] == start_char)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 23:38:01 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/15 23:35:01 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,35 @@
 #include <msh/ast/tokenizer.h>
 #include <msh/features.h>
 #include <msh/minishell.h>
+
+/**
+ * @looks for token to be merged (words)
+ */
+static void msh_ast_try_merge(t_list **tokens)
+{
+	t_list	*current;
+	t_list	*next;
+	t_token *t_curr;
+	t_token	*t_next;
+
+	current = *tokens;
+	if (!current || !current->next)
+		return ;
+	next = current->next;
+	t_curr = (t_token *) current->content;
+	t_next = (t_token *) next->content;
+	if (!t_curr || !t_next)
+		return ;
+	if (t_curr->type == TKN_WORD && t_next->type == TKN_WORD)
+	{
+		t_curr->data = ft_strjoin(2, "", 0b10, t_curr->data, t_next->data);	
+		current->next = next->next;
+		ft_lst_delete(next, (t_lst_dealloc) msh_ast_tkn_free);
+	}
+	else
+		current = current->next;
+	msh_ast_try_merge(&current);
+}
 
 /**
  * @brief Tries and tokenizes a string
@@ -67,5 +96,6 @@ t_list	*msh_ast_tokenize(const char *input)
 	}
 	if (errored)
 		ft_lst_free(&list, (t_lst_dealloc) msh_ast_tkn_free);
+	msh_ast_try_merge(&list);
 	return (list);
 }

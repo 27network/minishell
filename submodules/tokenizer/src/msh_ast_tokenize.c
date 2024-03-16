@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/15 23:35:01 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:16:55 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 /**
  * @looks for token to be merged (words)
  */
-static void msh_ast_try_merge(t_list **tokens)
+static void	msh_ast_try_merge(t_list **tokens)
 {
 	t_list	*current;
 	t_list	*next;
-	t_token *t_curr;
+	t_token	*t_curr;
 	t_token	*t_next;
 
 	current = *tokens;
@@ -35,7 +35,7 @@ static void msh_ast_try_merge(t_list **tokens)
 		return ;
 	if (t_curr->type == TKN_WORD && t_next->type == TKN_WORD)
 	{
-		t_curr->data = ft_strjoin(2, "", 0b10, t_curr->data, t_next->data);	
+		t_curr->data = ft_strjoin(2, "", 0b10, t_curr->data, t_next->data);
 		current->next = next->next;
 		ft_lst_delete(next, (t_lst_dealloc) msh_ast_tkn_free);
 	}

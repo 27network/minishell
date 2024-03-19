@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_signal_handler.c                               :+:      :+:    :+:   */
+/*   msh_signal_setdfl.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
+/*   By: cglandus <cglandus@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 05:13:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/17 05:14:17 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/19 21:49:35 by cglandus          #+#    #+#             */
+/*   Updated: 2024/03/19 23:07:44 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/minishell.h>
-#include <msh/cli/signal.h>
+#include <msh/signal.h>
 
-int	g_signal;
-
-void	msh_signal_handler(int signo)
+void	msh_signal_setdfl(void)
 {
-	if (signo == SIGINT)
+	int	i;
+
+	i = 0;
+	while (i < NSIG)
 	{
-		ft_putstr("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		signal(i, SIG_DFL);
+		i++;
 	}
-	g_signal = signo;
 }

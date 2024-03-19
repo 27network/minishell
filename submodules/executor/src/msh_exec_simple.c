@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 23:57:53 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/19 22:41:45 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <msh/env.h>
 #include <msh/exec/exec.h>
 #include <msh/io/path.h>
-#include <errno.h>
+#include <msh/externs.h>
+#include <msh/signal.h> 
 
 static void	msh_exec_error(t_minishell *msh, int err, char *name)
 {
@@ -38,6 +39,7 @@ int	msh_exec(t_minishell *msh, char **av, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
+		msh_signal_setdfl();
 		if (execve(av[0], av, envp) == -1)
 			msh_exec_error(msh, errno, av[0]);
 	}
@@ -48,6 +50,8 @@ int	msh_exec(t_minishell *msh, char **av, char **envp)
 		if (waitpid(pid, &status, 0) < 0)
 			ft_dprintf(2, "%s: %s: %m\n", msh->name, av[0]);
 	}
+	if (WCOREDUMP(status))
+		ft_dprintf(2, "Quit (core dumped)\n");
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:19:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 23:31:15 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:04:44 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_minishell
 	t_msh_flags		flags;
 
 	t_map			*env;
+	int				exit_code;
 	bool			interactive;
 
 	t_list			*free_buffer;

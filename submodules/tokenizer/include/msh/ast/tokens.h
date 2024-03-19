@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 18:18:25 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:27:32 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ typedef enum e_token_type
 	TKN_ASSIGNMENT_WORD,	// any sequence of characters of the form name=value
 	TKN_AND_IF,				// '&&'
 	TKN_OR_IF,				// '||'
-	TKN_FD_REF,				// '&[n]'
-	TKN_REDIR_OUT_CLOBBER,	// '>|'
-	TKN_REDIR_OUT_BOTH,		// '>&' or '&>'
 	TKN_REDIR_APPEND,		// '>>'
 	TKN_REDIR_HERE_DOC,		// '<<' or '<<-'
+	____DUMB_SEP,
+	TKN_FD_REF,				// '&[n]' or '&[n]-'
+	TKN_REDIR_OUT_CLOBBER,	// '>|'
 	TKN_REDIR_HERE_STR,		// '<<<'
 	TKN_REDIR_WORD,			// '<>'
-	TKN_REDIR_FD,			// '<&'
-	//TKN_REDIR_FD_WORD,	// '<&[n]' or '<&[n]-'
 	TKN_UNKNOWN,			// any other character
 }	t_token_type;
 

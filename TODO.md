@@ -48,6 +48,9 @@
   - [ ] Wildcards `*` for the current directory
     - [ ] Handle `?` and `[]`
 
+  - [ ] Implement `alias`
+  - [ ] Auto-completion feature
+
 <!--
 ### 42sh
 

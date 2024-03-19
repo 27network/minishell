@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 18:18:25 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:23:38 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 
 typedef enum e_token_type
 {
+	//						// WOW
 	TKN_WORD = 0,			// any sequence of characters
 	TKN_SPACE,				// ' ' or '\t'
 	TKN_PIPE,				// '|'
 	TKN_SEMICOLON,			// ';'
-	TKN_BACKGROUND,			// '&'
+	TKN_DOLLAR,				// '$'
+	TKN_AMP,				// '&'
 	TKN_NEWLINE,			// '\n'
-	TKN_EOF,				// end of file
 	TKN_REDIR_OUT,			// '>'
 	TKN_REDIR_IN,			// '<'
 	TKN_LPAREN,				// '('
 	TKN_RPAREN,				// ')'
 	TKN_LBRACE,				// '{'
 	TKN_RBRACE,				// '}'
-	TKN_LBRACKET,			// '['
-	TKN_RBRACKET,			// ']'
-	TKN_ASSIGN,				// '='
-	____TKN_SEP,			// separator between Pure and Compound tokens
+	TKN_ASSIGN,				// '='\
+	separator,				// -- Compound tokens -- 
+	TKN_SUBST,				// substituable token $VAR, ${EXPR}, *[], $((math))
 	TKN_ASSIGNMENT_WORD,	// any sequence of characters of the form name=value
 	TKN_AND_IF,				// '&&'
 	TKN_OR_IF,				// '||'

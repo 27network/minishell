@@ -6,12 +6,12 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 06:49:07 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/15 21:23:01 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/19 19:39:09 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	cli
-DEPS		=	executor tokenizer ast
+DEPS		=	shared executor tokenizer ast
 IS_EXEC		=	1
 
 include ../common-prelude.mk

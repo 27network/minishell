@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 19:49:41 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/09 23:28:49 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:23:38 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_token	*msh_ast_tokenize_paran_type(const char *line, size_t *cursor)
 	return (NULL);
 }
 
+
+
 t_token	*msh_ast_tokenize_single(const char *line, size_t *cursor)
 {
 	char	c;
@@ -60,6 +62,8 @@ t_token	*msh_ast_tokenize_single(const char *line, size_t *cursor)
 		token = msh_ast_tkn_new(TKN_REDIR_OUT, NULL);
 	else if (c == '=')
 		token = msh_ast_tkn_new(TKN_ASSIGN, NULL);
+	else if (c == '$')
+		token = msh_ast_tkn_new(TKN_DOLLAR, NULL);
 	else
 		return (NULL);
 	return (token);

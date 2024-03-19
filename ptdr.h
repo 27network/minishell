@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_ast_build.c                                    :+:      :+:    :+:   */
+/*   ptdr.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 22:11:39 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/19 22:18:33 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/19 22:24:41 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/19 22:24:41 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/ast/builder.h>
+#ifndef PTDR_H
+# define PTDR_H
+# undef PTDR_H
+# ifndef __SUBFOLDER_IDK_PTDR_H__
+#  define __SUBFOLDER_IDK_PTDR_H__
 
-t_list	*msh_ast_build(t_list *tokens)
-{
-	t_list	*ast;
-
-	ast = NULL;
-	(void)tokens;
-	return (ast);
-}
+# endif
+#endif

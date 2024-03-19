@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:22:46 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/19 22:48:16 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	msh_opt_command(t_minishell *msh)
 {
 	const char	*cmd;
 	int			c_flag_index;
-	int			ret;
 
 	c_flag_index = msh_find_flag_index(msh->launch_args.argv);
 	if (c_flag_index == -1 || msh->launch_args.argc <= c_flag_index + 1)
@@ -49,7 +48,7 @@ void	msh_opt_command(t_minishell *msh)
 		msh->name = msh->launch_args.argv[c_flag_index + 2];
 	if (msh->name == NULL)
 		msh->name = MSH_DEFAULT_NAME;
-	ret = msh_handle_line(msh, (char *) cmd);
+	msh->exit_code = msh_handle_line(msh, (char *) cmd);
 	msh_destroy(msh);
-	exit(ret);
+	exit(msh->exit_code);
 }

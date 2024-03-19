@@ -26,8 +26,6 @@ SRC			=	opt/msh_handle_opts.c \
 				shell/processor/msh_handle_line.c \
 				shell/prompt/msh_prompt_bash.c \
 				shell/msh_shell_loop.c \
-				signal/msh_signal_handler.c \
-				signal/msh_signal_init.c \
 				cli.c
 
 include ../common.mk

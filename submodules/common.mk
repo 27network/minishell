@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/05 01:13:45 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/20 03:29:15 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,11 @@ $(LIBS):
 	$(eval NUMBER_OF_SLASHES := $(shell expr $(NUMBER_OF_SLASHES) + 1))
 	$(eval CURRENT_LIB := $(shell echo $@ | cut -d'/' -f$(NUMBER_OF_SLASHES)))
 	@printf "$(SPACING)📑 Making '$(CURRENT_LIB)'\n"
-	@make -C ../$(CURRENT_LIB) all CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
+ifeq ($(EXTRA_DEBUG), 1)
+	make -C ../$(CURRENT_LIB) CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
+else
+	@make -C ../$(CURRENT_LIB) CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
+endif
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(D_DIR)
 	@mkdir -p $(dir $@)
@@ -89,7 +93,8 @@ endif
 	@mv -f $(D_DIR)/$*.tmp.d $(D_DIR)/$*.d
 	@touch $@
 
-$(D_DIR): ; @mkdir -p $@
+$(D_DIR): 
+	@mkdir -p $@
 
 $(SELF_DEP):
 	@mkdir -p $(dir $(SELF_DEP))

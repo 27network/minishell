@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cli.c                                              :+:      :+:    :+:   */
+/*   default.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 09:46:03 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 02:42:37 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/20 02:55:22 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/20 03:02:32 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/minishell.h>
-#include <msh/io/system.h>
-#include <msh/cli/opt.h>
-#include <msh/cli/shell.h>
-#include <msh/signal.h>
+#ifndef DEFAULT_H
+# define DEFAULT_H
 
-int	main(int argc, char *argv[], char *envp[])
+# include <msh/minishell.h>
+
+enum e_builtin_need
 {
-	t_minishell	minishell;
+	NEED_ENV = 0b01,
+	NEED_MSH = 0b10,
+};
 
-	msh_signal_init();
-	msh_init(&minishell, argc, argv, envp);
-	if (argc != 1)
-		msh_handle_opts(&minishell);
-	msh_shell_loop(&minishell);
-	msh_destroy(&minishell);
-	return (minishell.exit_code);
-}
+typedef struct s_builtin
+{
+	const char	*name;
+
+	int			(*func)();
+	int			need;
+
+}	t_builtin;
+
+void		msh_builtin_register(t_builtin builtin);
+
+#endif // DEFAULT_H

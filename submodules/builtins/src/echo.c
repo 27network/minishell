@@ -6,14 +6,14 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 22:54:45 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 03:36:31 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:42:28 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/builtin/default.h>
+#include <msh/builtin/defaults.h>
 #include <stdio.h>
 
-static int	echo$main(int argc, char **argv)
+static int	msh_builtin_echo(int argc, char **argv)
 {
 	(void) argc;
 	(void) argv;
@@ -26,6 +26,6 @@ void	register_echo(void)
 {
 	msh_builtin_register((t_builtin){
 		.name = "echo",
-		.func = echo$main,
+		.func = msh_builtin_echo,
 	});
 }

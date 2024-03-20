@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   default.h                                          :+:      :+:    :+:   */
+/*   defaults.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:55:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 03:02:32 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:41:40 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFAULT_H
-# define DEFAULT_H
+#ifndef DEFAULTS_H
+# define DEFAULTS_H
 
 # include <msh/minishell.h>
 
@@ -32,4 +32,4 @@ typedef struct s_builtin
 
 void		msh_builtin_register(t_builtin builtin);
 
-#endif // DEFAULT_H
+#endif // DEFAULTS_H

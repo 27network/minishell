@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:06:42 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/07 04:12:34 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/20 03:23:28 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,10 @@ endif
 
 # static linking
 LIBS :=
+BUILD_NEW_ARRAY = $(eval LIBS += $(CACHE_DIR)/$(shell echo "$(1)" | xargs)/lib$(shell echo "$(1)" | xargs).a)
+_ := $(foreach item, $(DEPS), $(call BUILD_NEW_ARRAY, $(item)))
 ifdef DEPS
 ifeq ($(IS_EXEC), 1)
-	BUILD_NEW_ARRAY = $(eval LIBS += $(CACHE_DIR)/$(shell echo "$(1)" | xargs)/lib$(shell echo "$(1)" | xargs).a)
-	_ := $(foreach item, $(DEPS), $(call BUILD_NEW_ARRAY, $(item)))
-
 	LDFLAGS		+=	$(LIBS:%=-Wl,--whole-archive %)
 	LDFLAGS		+=	-Wl,--no-whole-archive
 endif

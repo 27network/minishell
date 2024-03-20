@@ -6,12 +6,12 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 06:49:07 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/19 23:01:52 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/20 03:28:28 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		=	cli
-DEPS		=	executor shared
+NAME 		=	builtins
+DEPS		=	shared
 
 include ../common-prelude.mk
 

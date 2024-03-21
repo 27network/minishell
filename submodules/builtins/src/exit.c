@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 21:34:39 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 00:03:37 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:07:09 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	msh_builtin_exit(int argc, char **argv, t_minishell *msh)
 		return (-1);
 	if (!msh_parse_numeric(argv[1], &ret))
 	{
-		ft_dprintf(2, "%s: exit: %s: numeric argument required\n", msh->name, argv[1]);
+		ft_dprintf(2, "%s: exit: %s: numeric argument required\n",
+			msh->name, argv[1]);
 		msh->exit_code = 2;
 		return (-1);
 	}

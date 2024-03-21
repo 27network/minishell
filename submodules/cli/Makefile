@@ -6,12 +6,14 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 06:49:07 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/20 03:35:50 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/21 15:05:46 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	cli
-DEPS		=	executor tokenizer shared builtins
+#TODO: make it so that shared and builtins aren't required here since they could
+# 	   be transitive dependencies from other deps
+DEPS		=	tokenizer executor shared builtins
 IS_EXEC		=	1
 
 include ../common-prelude.mk

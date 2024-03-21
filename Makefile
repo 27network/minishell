@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/20 03:17:51 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/21 15:25:35 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ RED				:=	$(shell tput -Txterm setaf 1)
 RESET			:=	$(shell tput -Txterm sgr0)
 GREEN			:=	$(shell tput -Txterm setaf 2)
 
+HIDE_CURSOR		=	$(shell tput civis)
+SHOW_CURSOR		=	$(shell tput cnorm)
+
 AUTHORS			=	$(shell paste -s -d ':' config/author | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
 VG_RUN			?=
 
@@ -72,13 +75,14 @@ $(CACHE_DIR)/%:
 	fi
 
 $(CLI_EXEC):
+	@printf "\033[1A\33[2K\r✅ libft built\n"
 	@printf "\33[2K\rMaking $(NAME)\n"
-	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)"
+	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" 3>/dev/null 2>&3
 
 $(NAME): $(LIBFT) $(CLI_EXEC)
-	@printf "Linking $(CLI_EXEC) -> $(NAME)\n"
+	@printf "⛓ Linking $(CLI_EXEC) -> $(NAME)"
 	@cp -f "$(CLI_EXEC)" "$(NAME)"
-	@printf "$(GREEN)Done!$(RESET)\n"
+	@printf "\33[2K\r✅ $(NAME) linked\n"
 
 $(LIBFT):
 	@printf "Making libft\n"

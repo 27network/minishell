@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 07:14:16 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/20 03:29:15 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/21 21:28:52 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ else
 	@make -C ../$(CURRENT_LIB) CACHE_DIR="$(CACHE_DIR)" DEPTH="$(shell expr $(DEPTH) + 1)"
 endif
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(D_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@mkdir -p $(dir $(D_DIR)/$*)
 	@printf "$(SPACING)🔨 $<\n"
@@ -92,9 +92,6 @@ endif
 	@# dumb fixes, see https://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 	@mv -f $(D_DIR)/$*.tmp.d $(D_DIR)/$*.d
 	@touch $@
-
-$(D_DIR): 
-	@mkdir -p $@
 
 $(SELF_DEP):
 	@mkdir -p $(dir $(SELF_DEP))

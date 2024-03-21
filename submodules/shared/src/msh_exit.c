@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runner.h                                           :+:      :+:    :+:   */
+/*   msh_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 01:40:42 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:07:02 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/21 21:59:42 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/21 22:31:36 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RUNNER_H
-# define RUNNER_H
+#include <msh/minishell.h>
 
-# include <msh/minishell.h>
-
-void	msh_run_file(t_minishell *msh, const char *filename, int argc,
-			const char **argv);
-int		msh_run_script(t_minishell *msh, int fd, const char *filename);
-bool	msh_runner_check(t_minishell *msh, const char *file, int fd, int *ret);
-
-#endif // RUNNER_H
+void	msh_exit(t_minishell *msh, int64_t exit_code)
+{
+	msh_destroy(msh);
+	exit(exit_code);
+}

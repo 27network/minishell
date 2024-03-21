@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/21 17:09:28 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/21 23:12:14 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ $(CACHE_DIR)/%:
 $(CLI_EXEC):
 	@printf "\033[1A\33[2K\r✅ libft built\n"
 	@printf "\33[2K\rMaking $(NAME)\n"
-	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" 3>/dev/null 2>&3
+	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" # 3>/dev/null 2>&3
 
 $(NAME): $(LIBFT) $(CLI_EXEC)
 	@printf "⛓ Linking $(CLI_EXEC) -> $(NAME)"
@@ -109,6 +109,6 @@ fclean:			_fclean_prelude clean
 re:				fclean all
 
 valgrind:		$(NAME)
-	valgrind --suppressions=config/valgrind.vsupp -s --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(VG_RUN)
+	valgrind --suppressions=config/valgrind.vsupp -s --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes -q ./$(NAME) $(VG_RUN)
 
 .PHONY:			all bonus remake clean fclean re valgrind _fclean_prelude _banner

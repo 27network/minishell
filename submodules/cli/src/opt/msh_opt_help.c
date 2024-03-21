@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:04 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:24:07 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/21 23:04:21 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	msh_print_help(t_minishell *msh, int fd)
 {
 	const char	*argv0;
 
-	argv0 = msh->launch_args.argv[0];
+	argv0 = msh->name;
 	ft_dprintf(fd, "Usage:  %s [GNU long option] [option] ...\n", argv0);
 	ft_dprintf(fd, "        %s [GNU long option] [option] script-file ...\n",
 		argv0);
@@ -38,7 +38,7 @@ void	msh_opt_help(t_minishell *msh)
 {
 	const char	*argv0;
 
-	argv0 = msh->launch_args.argv[0];
+	argv0 = msh->name;
 	msh_print_version(1);
 	msh_print_help(msh, 1);
 	if (FEAT_BUILTIN_HELP_SET)
@@ -49,6 +49,5 @@ void	msh_opt_help(t_minishell *msh)
 			"builtin commands.\n", argv0);
 	printf("\n%s home page: <https://github.com/27network/minishell>\n",
 		MSH_DEFAULT_NAME);
-	msh_destroy(msh);
-	exit(0);
+	msh_exit(msh, 0);
 }

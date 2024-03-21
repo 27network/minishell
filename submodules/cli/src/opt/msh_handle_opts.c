@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:14:55 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:24:04 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/21 23:06:05 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ static void	msh_handle_invalid(t_minishell *msh, const char *flag, bool is_long)
 	else
 		ft_dprintf(2, "%s: -%c: %s\n", msh->name, flag[0], "invalid option");
 	msh_print_help(msh, 2);
-	msh_destroy(msh);
-	exit(2);
+	msh_exit(msh, 2);
 }
 
-static void	msh_handle_short(t_minishell *msh, const char *cmds)
-{
+static void	msh_handle_short(
+	t_minishell *msh,
+	const char *cmds,
+	int argc,
+	const char **argv
+) {
 	size_t	i;
 	bool	valid;
 
@@ -39,7 +42,7 @@ static void	msh_handle_short(t_minishell *msh, const char *cmds)
 	while (cmds[i])
 	{
 		if (cmds[i] == 'c')
-			msh_opt_command(msh);
+			msh_opt_command(msh, argc, argv);
 		else
 			valid = false;
 		i++;
@@ -48,8 +51,12 @@ static void	msh_handle_short(t_minishell *msh, const char *cmds)
 		msh_handle_invalid(msh, cmds, false);
 }
 
-static void	msh_handle_opt(t_minishell *msh, const char *cmd)
-{
+static void	msh_handle_opt(
+	t_minishell *msh,
+	const char *cmd,
+	int argc,
+	const char **argv
+) {
 	if (ft_strncmp(cmd, "--", 2) == 0)
 	{
 		if (ft_strcmp(cmd, "--version") == 0)
@@ -64,26 +71,26 @@ static void	msh_handle_opt(t_minishell *msh, const char *cmd)
 			msh_handle_invalid(msh, cmd, true);
 	}
 	else if (ft_strncmp(cmd, "-", 1) == 0)
-		msh_handle_short(msh, cmd + 1);
+		msh_handle_short(msh, cmd + 1, argc, argv);
 	else
-		msh_run_file(msh, cmd);
+		msh_run_file(msh, cmd, argc, argv);
 }
 
-void	msh_handle_opts(t_minishell *msh)
+void	msh_handle_opts(t_minishell *msh, int argc, const char **argv)
 {
 	int	i;
 
 	i = 1;
-	while (i < msh->launch_args.argc)
+	while (i < argc)
 	{
-		if (ft_strcmp(msh->launch_args.argv[i], "--help") == 0)
+		if (ft_strcmp(argv[i], "--help") == 0)
 			msh_opt_help(msh);
 		i++;
 	}
 	i = 1;
-	while (i < msh->launch_args.argc)
+	while (i < argc)
 	{
-		msh_handle_opt(msh, msh->launch_args.argv[i]);
+		msh_handle_opt(msh, argv[i], argc, argv);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:15:34 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 17:14:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/21 22:27:23 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	msh_setup_shlvl(t_minishell *msh)
 
 void	msh_env_defaults(t_minishell *msh)
 {
-	msh_env_populate(msh);
 	msh_setup_shlvl(msh);
 }
 

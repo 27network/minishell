@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/21 15:25:35 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/21 17:09:28 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ SUBMODULES		=	submodules
 LIBFT_DIR		=	$(CWD)/third-party/libft
 LIBFT			=	$(LIBFT_DIR)/libft.so
 
-CACHE_DIR		=	.cache
-CACHE_DIR		:=	$(addprefix $(shell pwd)/, $(CACHE_DIR))
+CACHE_DIR_NAME	=	.cache
+CACHE_DIR		=	$(addprefix $(shell pwd)/, $(CACHE_DIR_NAME))
 
 MAIN_MODULE		=	cli
 MAIN_MODULE_OUT	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
@@ -34,14 +34,13 @@ D_FILES			:=	$(foreach dep, $(DEPENDENCY_TREE), $(shell $(MAKE) -C $(SUBMODULES)
 RM				=	rm -rf
 
 # Colors
-BLUE			:=	$(shell tput -Txterm setaf 4)
-BOLD_WHITE		:=	$(shell tput -Txterm setaf 7)
-RED				:=	$(shell tput -Txterm setaf 1)
-RESET			:=	$(shell tput -Txterm sgr0)
-GREEN			:=	$(shell tput -Txterm setaf 2)
-
-HIDE_CURSOR		=	$(shell tput civis)
-SHOW_CURSOR		=	$(shell tput cnorm)
+TPUT			:=	tput -Txterm-256color
+BLUE			:=	$(shell $(TPUT) setaf 4)
+BOLD 			:=  $(shell $(TPUT) bold)
+RED				:=	$(shell $(TPUT) setaf 1)
+RESET			:=	$(shell $(TPUT) sgr0)
+GREEN			:=	$(shell $(TPUT) setaf 2)
+BOLD_WHITE		:=	$(RESET)$(BOLD)
 
 AUTHORS			=	$(shell paste -s -d ':' config/author | rev | sed -e 's/\:/ \& /' -e 's/:/ ,/g' | rev) 
 VG_RUN			?=
@@ -95,16 +94,16 @@ bonus:
 remake: clean all
 
 _fclean_prelude:
-	@echo "(F)Cleaning $(NAME)"
+	@printf "🧹 $(BOLD_WHITE)Cleaned $(NAME) $(RESET)$(GRAY)(./$(NAME))$(RESET)\n"
 	$(eval _DISABLE_CLEAN_LOG := 1)
 
 clean:
-	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then echo "Cleaning $(NAME)"; fi
-	$(RM) $(CACHE_DIR)
+	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then printf "🧹 $(BOLD_WHITE)Cleaned $(NAME) $(GRAY)(./$(CACHE_DIR_NAME))$(RESET)\n"; fi
+	@$(RM) $(CACHE_DIR)
 	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then $(MAKE) -C $(LIBFT_DIR) clean; fi 
 
 fclean:			_fclean_prelude clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re:				fclean all

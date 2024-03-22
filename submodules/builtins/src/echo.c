@@ -6,18 +6,102 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 22:54:45 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 03:42:28 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:59:48 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/builtin/defaults.h>
-#include <stdio.h>
+
+static int	is_opt(char *arg, const char *set, t_echo_opt *opt)
+{
+	int	i;
+
+	i = 1;
+	while (arg[i])
+	{
+		if (strchr(set, arg[i]) == 0)
+			return (0);
+		if (arg[i] == 'n')
+			opt->no_nl = true;
+		else if (arg[i] == 'e')
+			opt->bslh_enable = true;
+		else if (arg[i] == 'E')
+			opt->bslh_enable = false;
+		i++;
+	}
+	return (1);
+}
+
+static int	opt_skip(char **argv, t_echo_opt *opt)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i])
+	{
+		if (argv[i][0] != '-' || strlen(argv[i]) < 2)
+			break ;
+		if (!is_opt(argv[i], "neE", opt))
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+static void	ft_putbslh(char *format, t_echo_opt *opt)
+{
+	int	i;
+
+	i = 0;
+	while (format[i])
+	{
+		if (format[i] == '\\' && opt->bslh_enable && ECHO_OPT)
+		{
+				if (format[i + 1] == '\\')
+					ft_putchar('\\');
+				if (format[i + 1] == 'n')
+					ft_putchar('\n');
+				if (format[i + 1] == 't')
+					ft_putchar('\t');
+				else
+					ft_putchar('Q');
+				i++;
+		}
+		else
+			ft_putchar(format[i]);
+		i++;
+	}
+}
+
+static void	ft_echo(char **argv, int i, t_echo_opt *opt)
+{
+	while (argv[i])
+	{
+		ft_putbslh(argv[i], opt);
+		i++;
+		if (argv[i])
+			ft_putchar(' ');
+	}
+	if (!opt->no_nl)
+		ft_putchar('\n');
+}
 
 static int	msh_builtin_echo(int argc, char **argv)
 {
-	(void) argc;
-	(void) argv;
-	printf("je echo mr.\n");
+	(void)		agrc;
+	(void)		argv;
+	int			i;
+	t_echo_opt	opt;
+
+	opt.no_nl = false;
+	opt.bslh_enable = false;
+	if (argc < 2)
+		ft_putchar('\n');
+	else
+	{
+		i = opt_skip(argv, &opt);
+		ft_echo(argv, i, &opt);
+	}
 	return (0);
 }
 
@@ -29,3 +113,4 @@ void	register_echo(void)
 		.func = msh_builtin_echo,
 	});
 }
+

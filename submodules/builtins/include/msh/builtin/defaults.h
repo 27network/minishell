@@ -6,13 +6,14 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:55:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 03:41:40 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:01:34 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFAULTS_H
 # define DEFAULTS_H
 
+#define ECHO_OPT 0
 # include <msh/minishell.h>
 
 enum e_builtin_need

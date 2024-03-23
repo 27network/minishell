@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:30:48 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 22:11:28 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/23 04:08:00 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	msh_pwd_help(const char *argv0)
 	}
 }
 
+//TODO: @cglandus: Implement argc==1
 static int	msh_builtin_pwd(int argc, char **argv, t_minishell *msh)
 {
 	(void) argc;
@@ -42,7 +43,6 @@ static int	msh_builtin_pwd(int argc, char **argv, t_minishell *msh)
 	(void) msh;
 	if (argc == 1)
 	{
-		//TODO: @cglandus: Implement
 		return (0);
 	}
 	if (!ft_strcmp(argv[1], "--help"))

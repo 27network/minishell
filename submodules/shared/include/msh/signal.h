@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:09:18 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 22:51:53 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:32:26 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 # ifndef __MSH_SIGNAL_H__
 #  define __MSH_SIGNAL_H__
 
-#  if !defined(NSIG) && !defined(__USE_MISC)
-#   define __USE_POSIX19930
-#   define __USE_MISC
-#  endif
+#  ifndef NSIG
+#   ifndef __USE_MISC
+#    define __USE_POSIX19930
+#    define __USE_MISC
+#   endif // !__USE_MISC
+#  endif // !NSIG
+
 #  include <signal.h>
 #  include <msh/minishell.h>
 

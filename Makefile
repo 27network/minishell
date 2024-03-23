@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/23 03:20:40 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/23 04:00:34 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ MAKE			=	make --debug=none --no-print-directory
 
 NAME			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_NAME)
 VERSION			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_VERSION)
+COMP_MODE		?=	"MANDATORY_MSH"
 
 CWD				?=	$(shell pwd)
 SUBMODULES		=	submodules
@@ -40,6 +41,7 @@ RM				=	rm -rf
 # Colors
 TPUT			:=	tput -Txterm-256color
 BLUE			:=	$(shell $(TPUT) setaf 4)
+GRAY			:=	$(shell $(TPUT) setaf 8)
 BOLD 			:=  $(shell $(TPUT) bold)
 RED				:=	$(shell $(TPUT) setaf 1)
 RESET			:=	$(shell $(TPUT) sgr0)
@@ -57,10 +59,10 @@ define BANNER
  $(BLUE) / / / / / $(BOLD_WHITE)(__  )$(RED) / / /
  $(BLUE)/_/ /_/ /_$(BOLD_WHITE)/____/$(RED)_/ /_/  $(RESET)v$(VERSION)
              by $(AUTHORS)
-
 endef
 
 _DISABLE_CLEAN_LOG := 0
+_DISABLE_BANNER := 0
 
 all:	 _banner $(NAME) 
 
@@ -69,7 +71,15 @@ build:	all clean
 -include $(D_FILES)
 
 _banner:
-	$(info $(BANNER))
+	@if [ $(_DISABLE_BANNER) -eq 0 ]; then \
+		printf "$(info $(BANNER))"; \
+		printf "⚙️ Compilation mode: $(COMP_MODE)"; \
+		if [[ "$(EXTRA_DEBUG)" == 1 ]]; then \
+			printf " ($(RED)Debug Mode$(RESET))"; \
+		fi; \
+		printf "\n\n"; \
+	fi
+	$(eval _DISABLE_BANNER := 1)
 
 # invalidation mechanism
 $(CACHE_DIR)/%:
@@ -78,18 +88,18 @@ $(CACHE_DIR)/%:
 	fi
 
 $(CLI_EXEC):
-	@printf "\33[2K\r🛠️  Making $(NAME)\n"
+	@printf "\33[2K\r🛠️  Making $(BOLD_WHITE)$(NAME)$(RESET)\n"
 	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" # 3>/dev/null 2>&3
 
 $(NAME): $(FEATURES_H_ACTUAL) $(FEATURES_H) $(LIBFT) $(CLI_EXEC)
 	@printf "⛓ Linking $(CLI_EXEC) -> $(NAME)"
 	@cp -f "$(CLI_EXEC)" "$(NAME)"
-	@printf "\33[2K\r✅ $(NAME) linked\n"
+	@printf "\33[2K\r✅ Linked $(BOLD_WHITE)$(NAME)$(RESET), enjoy this dumb madness.\n"
 
 $(LIBFT):
 	@printf "🛠️  Making libft\n"
 	@$(MAKE) -C $(LIBFT_DIR) -j 
-	@printf "\033[1A\33[2K\r✅ libft built\n"
+	@printf "\033[1A\33[2K\r✅ Built $(BOLD_WHITE)libft$(RESET)\n"
 
 $(FEATURES_H_ACTUAL): $(FEATURES_H_GEN)
 	@printf "✍  Generating $(FEATURES_H_ACTUAL)\n"
@@ -100,17 +110,25 @@ $(FEATURES_H):
 	@$(MAKE) -C config -f features.mk genlink 
 
 bonus:
-	# @echo "Making $(NAME) bonus"
-	@echo "TODO: Implement bonus compilation"
+	@$(MAKE) COMP_MODE="BONUS_MSH" re
+
+extras:
+	@$(MAKE) COMP_MODE="EXTRAS" re
+
+42sh:
+	@$(MAKE) COMP_MODE="MANDATORY_42SH" re
+
+42sh-bonus:
+	@$(MAKE) COMP_MODE="BONUS_42SH" re
 
 remake: clean all
 
 _fclean_prelude:
-	@printf "🧹 $(BOLD_WHITE)Cleaned $(NAME) $(RESET)$(GRAY)(./$(NAME))$(RESET)\n"
+	@printf "🧹 Cleaned $(BOLD_WHITE)$(NAME)$(RESET) $(GRAY)(./$(NAME))$(RESET)\n"
 	$(eval _DISABLE_CLEAN_LOG := 1)
 
 clean:
-	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then printf "🧹 $(BOLD_WHITE)Cleaned $(NAME) $(GRAY)(./$(CACHE_DIR_NAME))$(RESET)\n"; fi
+	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then printf "🧹 Cleaned $(BOLD_WHITE)$(NAME)$(RESET) $(GRAY)(./$(CACHE_DIR_NAME))$(RESET)\n"; fi
 	@$(RM) $(CACHE_DIR)
 	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then $(MAKE) -C $(LIBFT_DIR) clean; fi 
 
@@ -121,7 +139,7 @@ fclean:			_fclean_prelude clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 
-re:				fclean all
+re:				_banner fclean all
 
 valgrind:		$(NAME)
 	valgrind --suppressions=config/valgrind.vsupp -s --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes -q ./$(NAME) $(VG_RUN)

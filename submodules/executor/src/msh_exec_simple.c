@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 23:33:08 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:37:35 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ static void	msh_exec_error(t_minishell *msh, int err, char *name)
 
 static int	msh_exec_status(int wait_status)
 {
+	int	sig;
+
 	if (WIFEXITED(wait_status))
 		return (WEXITSTATUS(wait_status));
 	else if (WIFSIGNALED(wait_status))
 	{
-		if (WTERMSIG(wait_status) == SIGQUIT)
-			ft_dprintf(2, "ptdr change moi stp"); // ptdr change le stp
-		return (WTERMSIG(wait_status) + 128);
+		sig = WTERMSIG(wait_status);
+		if (sig != SIGINT && sig != SIGQUIT)
+			ft_dprintf(2, "Terminated by signal %d\n", WTERMSIG(wait_status));
+		return (sig + 128);
 	}
 	else if (WIFSTOPPED(wait_status))
 		return (WSTOPSIG(wait_status) + 128);
@@ -99,13 +102,13 @@ int	msh_exec_builtin(t_minishell *msh, char **args, char **env)
 		n_env = (builtin->needs & NEEDS_ENV) == NEEDS_ENV;
 		n_msh = (builtin->needs & NEEDS_MSH) == NEEDS_MSH;
 		if (n_env && n_msh)
-			return (builtin->func(argc, args, env, msh));
+			return (((t_builtin_fboth)builtin->func)(argc, args, env, msh));
 		else if (n_env)
-			return (builtin->func(argc, args, env));
+			return (((t_builtin_fenv)builtin->func)(argc, args, env));
 		else if (n_msh)
-			return (builtin->func(argc, args, msh));
+			return (((t_builtin_fmsh)builtin->func)(argc, args, msh));
 		else
-			return (builtin->func(argc, args));
+			return (((t_builtin_fnone)builtin->func)(argc, args));
 	}
 	return (BUILTIN_NOT_FOUND);
 }

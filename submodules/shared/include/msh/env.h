@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 22:38:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 17:10:08 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:32:46 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # ifndef __MSH_ENV_H__
 #  define __MSH_ENV_H__
 
-# include <msh/minishell.h>
+#  include <msh/minishell.h>
 
 int		msh_env_populate(t_minishell *msh, const char **envp);
 void	msh_env_defaults(t_minishell *msh);

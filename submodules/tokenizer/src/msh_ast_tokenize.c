@@ -6,10 +6,11 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 06:40:00 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/16 01:16:55 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:12:37 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/string.h>
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
 #include <msh/features.h>
@@ -56,7 +57,7 @@ static bool	msh_ast_try_tokenize(
 	t_token	*token;
 
 	c = line[*cursor];
-	if (c == '\\' && FEAT_TKN_ESCAPE)
+	if (c == '\\' && FEAT_PARSER_INHIBITORS)
 		token = msh_ast_tokenize_escape(line, cursor);
 	else if (c == '\'' || c == '\"')
 		token = msh_ast_tokenize_string(line, cursor);

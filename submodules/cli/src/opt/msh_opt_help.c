@@ -6,10 +6,11 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:04 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:04:21 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:19:21 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/print.h>
 #include <msh/minishell.h>
 #include <msh/features.h>
 #include <msh/cli/opt.h>
@@ -42,12 +43,12 @@ void	msh_opt_help(t_minishell *msh)
 	msh_print_version(1);
 	msh_print_help(msh, 1);
 	if (FEAT_BUILTIN_HELP_SET)
-		printf("Type `%s -c \"help set\"' for more information about "
+		ft_printf("Type `%s -c \"help set\"' for more information about "
 			"shell options.\n", argv0);
 	if (FEAT_BUILTIN_HELP)
-		printf("Type `%s -c help' for more information about shell "
+		ft_printf("Type `%s -c help' for more information about shell "
 			"builtin commands.\n", argv0);
-	printf("\n%s home page: <https://github.com/27network/minishell>\n",
+	ft_printf("\n%s home page: <https://github.com/27network/minishell>\n",
 		MSH_DEFAULT_NAME);
 	msh_exit(msh, 0);
 }

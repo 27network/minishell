@@ -6,13 +6,16 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 05:22:17 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 09:04:52 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:24:54 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/string.h>
 #include <msh/ast/tokenizer.h>
 #include <msh/cli/shell.h>
 #include <msh/exec/exec.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 static int	msh_debug_exec(t_minishell *msh, char *line)
 {

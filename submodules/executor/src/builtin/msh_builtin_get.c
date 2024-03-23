@@ -6,10 +6,11 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:38:27 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 03:37:08 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:11:46 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/string.h>
 #include <msh/exec/builtin.h>
 
 t_builtin	*msh_builtin_get(const char *name)

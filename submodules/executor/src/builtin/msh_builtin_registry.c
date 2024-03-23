@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:17 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:19:29 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:54:39 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 /**
  * @brief Get the registry of builtins
  *
- * This is the ONLYstatic hack in the project, which is necessary since we
- * we access it on shared object construction and don't have shared resources 
+ * This is the ONLY static "hack" in the project, which is necessary since we
+ * access it on shared object construction and don't have shared resources 
  * with main() at that point.
  *
- * This was either that or putting a 64bit pointer as a string literal in 
- * argv[0] so be happy this is here.
+ * This was either that or putting a 64bit pointer as a string literal appended
+ * to argv[0] so be happy this is here.
  *
  * @return t_list** The registry
  */

@@ -6,12 +6,13 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:02:54 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 05:20:55 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:57:30 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/io/system.h>
-#include <msh/externs.h>
+#include <msh/io.h>
+#include <readline/readline.h>
+#include <unistd.h>
 
 bool	msh_is_interactive(void)
 {

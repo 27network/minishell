@@ -6,17 +6,23 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:41:59 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 23:33:08 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <msh/signal.h> 
+#include <errno.h>
+#include <ft/print.h>
+#include <ft/string.h>
 #define _GNU_SOURCE
 #include <msh/env.h>
 #include <msh/exec/builtin.h>
 #include <msh/exec/exec.h>
-#include <msh/io/path.h>
-#include <msh/externs.h>
-#include <msh/signal.h> 
+#include <msh/io.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #define SHOULD_EXIT -1
 #define BUILTIN_NOT_FOUND -2
@@ -46,8 +52,6 @@ static int	msh_exec_status(int wait_status)
 	}
 	else if (WIFSTOPPED(wait_status))
 		return (WSTOPSIG(wait_status) + 128);
-	else if (WIFCONTINUED(wait_status))
-		return (0);
 	return (SHOULD_EXIT);
 }
 

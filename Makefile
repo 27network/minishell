@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/21 23:12:14 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/23 03:20:40 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,10 @@ LIBFT			=	$(LIBFT_DIR)/libft.so
 
 CACHE_DIR_NAME	=	.cache
 CACHE_DIR		=	$(addprefix $(shell pwd)/, $(CACHE_DIR_NAME))
+
+FEATURES_H		=	$(SUBMODULES)/shared/include/msh/features.h
+FEATURES_H_ACTUAL=	config/features.h
+FEATURES_H_GEN	=	config/features.h.gen.sh
 
 MAIN_MODULE		=	cli
 MAIN_MODULE_OUT	=	$(shell $(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) print_OUTPUT)
@@ -74,18 +78,26 @@ $(CACHE_DIR)/%:
 	fi
 
 $(CLI_EXEC):
-	@printf "\033[1A\33[2K\r✅ libft built\n"
-	@printf "\33[2K\rMaking $(NAME)\n"
+	@printf "\33[2K\r🛠️  Making $(NAME)\n"
 	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" # 3>/dev/null 2>&3
 
-$(NAME): $(LIBFT) $(CLI_EXEC)
+$(NAME): $(FEATURES_H_ACTUAL) $(FEATURES_H) $(LIBFT) $(CLI_EXEC)
 	@printf "⛓ Linking $(CLI_EXEC) -> $(NAME)"
 	@cp -f "$(CLI_EXEC)" "$(NAME)"
 	@printf "\33[2K\r✅ $(NAME) linked\n"
 
 $(LIBFT):
-	@printf "Making libft\n"
+	@printf "🛠️  Making libft\n"
 	@$(MAKE) -C $(LIBFT_DIR) -j 
+	@printf "\033[1A\33[2K\r✅ libft built\n"
+
+$(FEATURES_H_ACTUAL): $(FEATURES_H_GEN)
+	@printf "✍  Generating $(FEATURES_H_ACTUAL)\n"
+	@$(MAKE) -C config -f features.mk gen
+
+$(FEATURES_H):
+	@printf "⛓  Linking $(FEATURES_H) -> $(FEATURES_H_ACTUAL)\n"
+	@$(MAKE) -C config -f features.mk genlink 
 
 bonus:
 	# @echo "Making $(NAME) bonus"
@@ -103,6 +115,9 @@ clean:
 	@if [ $(_DISABLE_CLEAN_LOG) -eq 0 ]; then $(MAKE) -C $(LIBFT_DIR) clean; fi 
 
 fclean:			_fclean_prelude clean
+	@$(RM) $(FEATURES_H_ACTUAL)
+	@$(RM) $(FEATURES_H)
+
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 

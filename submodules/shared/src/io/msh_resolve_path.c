@@ -6,12 +6,16 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:44:08 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/07 09:11:00 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:58:34 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/print.h>
+#include <ft/string.h>
 #include <msh/minishell.h>
 #include <msh/env.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 static bool	msh_validate(const char *filename)
 {

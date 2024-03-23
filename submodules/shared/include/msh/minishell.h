@@ -6,12 +6,15 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:19:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:08:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:51:48 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# undef MINISHELL_H
+# ifndef __MSH_MINISHELL_H__
+#  define __MSH_MINISHELL_H__
 
 /**
  * @file minishell.h
@@ -19,23 +22,19 @@
  * 		  many widely-useful function prototypes.
  */
 
-# include <ft/data/list.h>
-# include <ft/data/map.h>
-# include <ft/io.h>
-# include <ft/math.h>
-# include <ft/mem.h>
-# include <ft/print.h>
-# include <ft/string.h>
-# include <ft/string/parse.h>
-# include <msh/externs.h>
+#  include <msh/features.h>
+#  include <msh/flags.h>
+#  include <ft/data/list.h>
+#  include <ft/data/map.h>
+#  include <stdbool.h>
 
-# ifndef MSH_DEFAULT_NAME
-#  define MSH_DEFAULT_NAME "minishell"
-# endif // MSH_DEFAULT_NAME
+#  ifndef MSH_DEFAULT_NAME
+#   define MSH_DEFAULT_NAME "minishell"
+#  endif // MSH_DEFAULT_NAME
 
-# ifndef MSH_VERSION
-#  define MSH_VERSION "0.0.0-indev"
-# endif // MSH_VERSION
+#  ifndef MSH_VERSION
+#   define MSH_VERSION "0.0.0-indev"
+#  endif // MSH_VERSION
 
 /**
  * @brief Program arguments for minishell. See brief of `t_minishell` 
@@ -50,21 +49,16 @@ typedef struct s_program_args
 	const char	**argv;
 }	t_program_args;
 
-typedef struct s_msh_flags
-{
-	bool	print_ast;
-	bool	print_pipelines;
-	bool	print_tokens;
-}	t_msh_flags;
-
 /**
  * @brief Inner structure of minishell.
  *
- * @param name Name of the shell, defaults to argv[0].
+ * @param binary_name Binary file name, set to argv[0] and never changes.
+ * @param name Name of the shell, defaults to argv[0], can be overwritten
+ * 			   by the -c and -s flags.
  * @param shell_args Arguments passed to the shell. Note that these are
  *					 not the arguments passed to the shell program itself,
  *					 rather the parsed arguments from -c, -s, and for scripts.
- * @param flags Internal flags for minishell.
+ * @param flags Internal flags for minishell, see `t_msh_flags` in `flags.h`.
  *
  * @param env Environment variables map, see `t_map`.
  * @param exit_code Exit code of the shell.
@@ -74,6 +68,7 @@ typedef struct s_msh_flags
  */
 typedef struct s_minishell
 {
+	const char		*binary_name;
 	const char		*name;
 	t_program_args	shell_args;
 	t_msh_flags		flags;
@@ -116,10 +111,12 @@ void	msh_destroy(t_minishell *msh);
  * 		  or `exit` for better callsite management.
  *
  * @param msh Minishell instance to destroy.
+ * @param exit_code Exit code to exit with (wrapped to 8 bits, 0-255).
  *
  * @note Passing a NULL pointer is safe, this function will emit a warning
  * 		 and exit with return code -1.
  */
 void	msh_exit(t_minishell *msh, int64_t exit_code);
 
+# endif // __MSH_MINISHELL_H__
 #endif // MINISHELL_H

@@ -6,11 +6,12 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:10:54 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/29 20:13:59 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:10:24 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft/mem.h>
+#include <ft/string.h>
 #define TOKENIZER_TYPES
 #include <msh/ast/tokenizer.h>
 

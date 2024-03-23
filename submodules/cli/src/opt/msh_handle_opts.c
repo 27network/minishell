@@ -6,12 +6,14 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:14:55 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:06:05 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:18:31 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define AVAILABLE_SHORT_OPTS "c"
 
+#include <ft/string.h>
+#include <ft/print.h>
 #include <msh/cli/runner.h>
 #define MSH_OPT_IMPL
 #include <msh/cli/opt.h>

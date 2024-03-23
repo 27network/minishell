@@ -6,13 +6,20 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:41:40 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 23:08:29 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:20:36 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <fcntl.h>
+#include <ft/print.h>
+#include <ft/string.h>
 #include <msh/minishell.h>
-#include <msh/io/path.h>
+#include <msh/io.h>
 #include <msh/cli/runner.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 static int	msh_resolve_fd(t_minishell *msh, const char *filename, char **name)
 {

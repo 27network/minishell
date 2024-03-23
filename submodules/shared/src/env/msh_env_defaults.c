@@ -6,12 +6,13 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:15:34 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 22:27:23 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:53:24 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/env.h>
 #include <ft/string/parse.h>
+#include <ft/string.h>
 
 static char	*_(char *s)
 {

@@ -1,31 +1,30 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    config.mk                                          :+:      :+:    :+:    #
+#    features.mk                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/16 05:36:04 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/22 23:55:44 by kiroussa         ###   ########.fr        #
+#    Created: 2024/03/23 00:16:42 by kiroussa          #+#    #+#              #
+#    Updated: 2024/03/23 03:11:33 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PROJECT_NAME	?= minishell
-PROJECT_VERSION	?= 0.2.1
+NAME = features.h
+SOURCE = features.h.gen.sh
+TARGET = ../submodules/shared/include/msh/features.h
 
-SRC_DIR			?= src
-INCLUDE_DIR		?= include
+all: $(TARGET) $(NAME)
 
-CC				= clang
-CFLAGS			= -Wall -Wextra -Werror -g3
-# TODO: @kiroussa: REMOVE
-CFLAGS += -Wno-deprecated-non-prototype
-DFLAGS 			= -MT $@ -MMD -MP -MF $(D_DIR)/$*.tmp.d
+genlink: $(TARGET)
 
-#LDFLAGS shouldn't be defined here, as it's shared with `ar`. 
-# See `submodules/common-prelude.mk`
+$(TARGET):
+	ln -fs $(shell pwd)/$(NAME) $(TARGET)
 
-EXTRA_DEBUG		?= 0
+gen: $(NAME)
 
-print_%:
-	@echo $($*)
+$(NAME): $(SOURCE)
+	sh $(SOURCE) > $(NAME)
+
+.PHONY: all gen genlink
+.SILENT:

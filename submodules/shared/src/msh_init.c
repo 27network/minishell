@@ -6,13 +6,17 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:45:29 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 22:33:24 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:09:34 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/mem.h>
+#include <ft/print.h>
+#include <ft/string.h>
 #include <msh/minishell.h>
-#include <msh/io/system.h>
+#include <msh/io.h>
 #include <msh/env.h>
+#include <unistd.h>
 
 /**
  * @brief A simple hash function for strings.
@@ -43,6 +47,7 @@ void	msh_init(
 ) {
 	(void) argc;
 	ft_bzero(msh, sizeof(t_minishell));
+	msh->binary_name = argv[0];
 	msh->name = argv[0];
 	msh->interactive = msh_is_interactive();
 	msh->env = ft_map_new(100, msh_string_hash,

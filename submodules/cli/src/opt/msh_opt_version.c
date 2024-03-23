@@ -6,10 +6,11 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:03:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 22:29:53 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:19:34 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/print.h>
 #include <msh/minishell.h>
 #include <msh/cli/opt.h>
 

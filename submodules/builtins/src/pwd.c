@@ -6,12 +6,13 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:30:48 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 00:02:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:11:28 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/string.h>
 #include <msh/builtin/defaults.h>
-#include <msh/externs.h>
+#include <stdio.h>
 
 #define FEAT_BUILTIN_PWD_OPT 1
 

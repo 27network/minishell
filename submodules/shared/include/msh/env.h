@@ -6,12 +6,15 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 22:38:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/21 22:30:53 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:10:08 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
+# undef ENV_H
+# ifndef __MSH_ENV_H__
+#  define __MSH_ENV_H__
 
 # include <msh/minishell.h>
 
@@ -26,4 +29,5 @@ void	msh_env_node_free(t_map_node *node);
 char	**msh_env_tab(t_minishell *msh);
 void	msh_env_tab_free(char **tab);
 
+# endif // __MSH_ENV_H__
 #endif // ENV_H

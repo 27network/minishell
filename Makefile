@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/23 04:00:34 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/23 04:18:16 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ MAKE			=	make --debug=none --no-print-directory
 
 NAME			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_NAME)
 VERSION			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_VERSION)
+EXTRA_DEBUG		=	$(shell $(MAKE) -f config/config.mk print_EXTRA_DEBUG)
 COMP_MODE		?=	"MANDATORY_MSH"
 
 CWD				?=	$(shell pwd)
@@ -74,7 +75,7 @@ _banner:
 	@if [ $(_DISABLE_BANNER) -eq 0 ]; then \
 		printf "$(info $(BANNER))"; \
 		printf "⚙️ Compilation mode: $(COMP_MODE)"; \
-		if [[ "$(EXTRA_DEBUG)" == 1 ]]; then \
+		if [ $(EXTRA_DEBUG) -eq 1 ]; then \
 			printf " ($(RED)Debug Mode$(RESET))"; \
 		fi; \
 		printf "\n\n"; \

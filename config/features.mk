@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/23 00:16:42 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/23 03:11:33 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/23 04:10:11 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ $(TARGET):
 gen: $(NAME)
 
 $(NAME): $(SOURCE)
-	sh $(SOURCE) > $(NAME)
+	bash $(SOURCE) > $(NAME)
 
 .PHONY: all gen genlink
 .SILENT:

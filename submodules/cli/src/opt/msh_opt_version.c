@@ -6,10 +6,11 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 03:03:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:23:49 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:19:34 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/print.h>
 #include <msh/minishell.h>
 #include <msh/cli/opt.h>
 
@@ -26,6 +27,5 @@ void	msh_opt_version(t_minishell *msh)
 	ft_printf("This is free software; you are free to change and "
 		"redistribute it.\n");
 	ft_printf("There is NO WARRANTY, to the extent permitted by law.\n");
-	msh_destroy(msh);
-	exit(0);
+	msh_exit(msh, 0);
 }

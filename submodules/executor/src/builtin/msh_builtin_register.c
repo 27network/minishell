@@ -6,11 +6,13 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:04:42 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 00:21:13 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:12:09 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/print.h>
 #include <msh/exec/builtin.h>
+#include <stdlib.h>
 
 void	msh_builtin_register(t_builtin builtin)
 {

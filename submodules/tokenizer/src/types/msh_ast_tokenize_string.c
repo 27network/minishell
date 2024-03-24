@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:44:46 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/15 20:53:09 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:12:19 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	msh_find_string_end(const char *line, size_t start)
 	start_char = line[start];
 	while (line[end])
 	{
-		if (line[end] == '\\' && FEAT_TKN_ESCAPE)
+		if (line[end] == '\\' && FEAT_PARSER_INHIBITORS)
 			end++;
 		else if (line[end] == start_char)
 			break ;

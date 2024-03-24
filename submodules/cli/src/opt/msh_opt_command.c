@@ -6,10 +6,12 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:15:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/19 22:48:16 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:18:51 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/string.h>
+#include <ft/print.h>
 #include <msh/minishell.h>
 #include <msh/cli/shell.h>
 #include <msh/exec/exec.h>
@@ -30,25 +32,21 @@ static int	msh_find_flag_index(const char **argv)
 	return (-1);
 }
 
-void	msh_opt_command(t_minishell *msh)
+void	msh_opt_command(t_minishell *msh, int argc, const char **argv)
 {
 	const char	*cmd;
 	int			c_flag_index;
 
-	c_flag_index = msh_find_flag_index(msh->launch_args.argv);
-	if (c_flag_index == -1 || msh->launch_args.argc <= c_flag_index + 1)
+	c_flag_index = msh_find_flag_index(argv);
+	if (c_flag_index == -1 || argc <= c_flag_index + 1)
 	{
-		ft_dprintf(2, "%s: -c: option requires an argument\n",
-			msh->launch_args.argv[0]);
-		msh_destroy(msh);
-		exit(2);
+		ft_dprintf(2, "%s: -c: option requires an argument\n", msh->name);
+		msh_exit(msh, 2);
 	}
-	cmd = msh->launch_args.argv[c_flag_index + 1];
-	if (msh->launch_args.argc > c_flag_index + 2)
-		msh->name = msh->launch_args.argv[c_flag_index + 2];
+	cmd = argv[c_flag_index + 1];
+	if (argc > c_flag_index + 2)
+		msh->name = argv[c_flag_index + 2];
 	if (msh->name == NULL)
 		msh->name = MSH_DEFAULT_NAME;
-	msh->exit_code = msh_handle_line(msh, (char *) cmd);
-	msh_destroy(msh);
-	exit(msh->exit_code);
+	msh_exit(msh, msh_handle_line(msh, (char *) cmd));
 }

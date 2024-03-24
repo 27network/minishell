@@ -6,12 +6,15 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:24:05 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 20:32:20 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:55:02 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/mem.h>
+#include <ft/print.h>
 #include <msh/minishell.h>
 #include <msh/env.h>
+#include <unistd.h>
 
 static char	**msh_build_env(t_minishell *msh, t_list *keys)
 {

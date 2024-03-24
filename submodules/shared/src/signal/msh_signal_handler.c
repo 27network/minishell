@@ -6,12 +6,14 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:13:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/19 22:23:44 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/22 19:37:19 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft/print.h>
 #include <msh/signal.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 int	g_signal;
 

@@ -6,12 +6,13 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:15:34 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 17:14:03 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:53:24 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh/env.h>
 #include <ft/string/parse.h>
+#include <ft/string.h>
 
 static char	*_(char *s)
 {
@@ -38,7 +39,6 @@ static void	msh_setup_shlvl(t_minishell *msh)
 
 void	msh_env_defaults(t_minishell *msh)
 {
-	msh_env_populate(msh);
 	msh_setup_shlvl(msh);
 }
 

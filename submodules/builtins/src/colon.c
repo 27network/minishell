@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_is_interactive.c                               :+:      :+:    :+:   */
+/*   colon.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 05:02:54 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 17:57:30 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/23 21:56:48 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/24 16:03:19 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/io.h>
-#include <readline/readline.h>
-#include <unistd.h>
+#include <msh/features.h>
+#if FEAT_BUILTIN_COLON
+# include <msh/builtin/defaults.h>
 
-bool	msh_is_interactive(void)
+/**
+ * @brief no-op
+ */
+int	msh_builtin_colon(int argc, char **argv)
 {
-	int	tty;
-
-	tty = STDIN_FILENO;
-	if (rl_instream)
-		tty = msh_fileno(rl_instream);
-	return (isatty(tty));
+	(void)argc;
+	(void)argv;
+	return (0);
 }
+
+__attribute__((constructor))
+void	register_colon(void)
+{
+	msh_builtin_register((t_builtin){
+		.name = ":",
+		.func = msh_builtin_colon,
+	});
+}
+#endif // FEAT_BUILTIN_COLON

@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 06:49:07 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/21 23:54:37 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/24 16:02:17 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ DEPS		=	shared
 
 include ../common-prelude.mk
 
-SRC			=	echo.c \
+SRC			=	colon.c \
+				echo.c \
 				exit.c \
 				pwd.c
 

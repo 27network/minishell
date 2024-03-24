@@ -6,15 +6,16 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/23 04:18:16 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/23 21:49:39 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAKE			=	make --debug=none --no-print-directory
 
-NAME			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_NAME)
-VERSION			=	$(shell $(MAKE) -f config/config.mk print_PROJECT_VERSION)
-EXTRA_DEBUG		=	$(shell $(MAKE) -f config/config.mk print_EXTRA_DEBUG)
+CONFIG_MK		=	config/config.mk
+NAME			=	$(shell $(MAKE) -f $(CONFIG_MK) print_PROJECT_NAME)
+VERSION			=	$(shell $(MAKE) -f $(CONFIG_MK) print_PROJECT_VERSION)
+EXTRA_DEBUG		=	$(shell $(MAKE) -f $(CONFIG_MK) print_EXTRA_DEBUG)
 COMP_MODE		?=	"MANDATORY_MSH"
 
 CWD				?=	$(shell pwd)
@@ -92,7 +93,7 @@ $(CLI_EXEC):
 	@printf "\33[2K\r🛠️  Making $(BOLD_WHITE)$(NAME)$(RESET)\n"
 	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" # 3>/dev/null 2>&3
 
-$(NAME): $(FEATURES_H_ACTUAL) $(FEATURES_H) $(LIBFT) $(CLI_EXEC)
+$(NAME): $(CONFIG_MK) $(FEATURES_H_ACTUAL) $(FEATURES_H) $(LIBFT) $(CLI_EXEC)
 	@printf "⛓ Linking $(CLI_EXEC) -> $(NAME)"
 	@cp -f "$(CLI_EXEC)" "$(NAME)"
 	@printf "\33[2K\r✅ Linked $(BOLD_WHITE)$(NAME)$(RESET), enjoy this dumb madness.\n"

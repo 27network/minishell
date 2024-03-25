@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:55:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/25 22:31:20 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:08:42 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_builtin
 
 }	t_builtin;
 
-typedef union u_opt {
+typedef union u_opt
+{
 	bool	_;
 	struct {
 		bool	no_nl:1;

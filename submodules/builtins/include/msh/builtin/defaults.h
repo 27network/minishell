@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:55:22 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 16:01:34 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:16:54 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ typedef struct s_builtin
 	int			need;
 
 }	t_builtin;
+
+typedef union u_opt {
+	bool	_;
+	struct {
+		bool	no_nl:1;
+		bool	bslh_enable:1;
+	};
+}	t_echo_opt;
 
 void		msh_builtin_register(t_builtin builtin);
 

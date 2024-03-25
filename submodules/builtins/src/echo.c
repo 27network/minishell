@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 22:54:45 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 15:59:48 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:18:37 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	opt_skip(char **argv, t_echo_opt *opt)
 	{
 		if (argv[i][0] != '-' || strlen(argv[i]) < 2)
 			break ;
-		if (!is_opt(argv[i], "neE", opt))
+		if (!is_opt(argv[i], "neE", opt) || (!ECHO_OPT && !is_opt(argv[i], "n", opt)))
 			break ;
 		i++;
 	}
@@ -88,7 +88,7 @@ static void	ft_echo(char **argv, int i, t_echo_opt *opt)
 
 static int	msh_builtin_echo(int argc, char **argv)
 {
-	(void)		agrc;
+	(void)		argc;
 	(void)		argv;
 	int			i;
 	t_echo_opt	opt;

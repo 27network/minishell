@@ -6,7 +6,7 @@
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 21:19:50 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/23 21:49:39 by kiroussa         ###   ########.fr        #
+#    Updated: 2024/03/24 17:47:23 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,9 +93,9 @@ $(CLI_EXEC):
 	@printf "\33[2K\r🛠️  Making $(BOLD_WHITE)$(NAME)$(RESET)\n"
 	@$(MAKE) -C $(SUBMODULES)/$(MAIN_MODULE) DEPTH="1" CACHE_DIR="$(CACHE_DIR)" LIBFT_DIR="$(LIBFT_DIR)" # 3>/dev/null 2>&3
 
-$(NAME): $(CONFIG_MK) $(FEATURES_H_ACTUAL) $(FEATURES_H) $(LIBFT) $(CLI_EXEC)
+$(NAME): $(LIBFT) $(CONFIG_MK) $(FEATURES_H_ACTUAL) $(FEATURES_H) $(CLI_EXEC)
 	@printf "⛓ Linking $(CLI_EXEC) -> $(NAME)"
-	@cp -f "$(CLI_EXEC)" "$(NAME)"
+	@cp -f "$(CLI_EXEC)" "$(NAME)" # 🤓 erm acshually its not a link but a copy 🤓
 	@printf "\33[2K\r✅ Linked $(BOLD_WHITE)$(NAME)$(RESET), enjoy this dumb madness.\n"
 
 $(LIBFT):

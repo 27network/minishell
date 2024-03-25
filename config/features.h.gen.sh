@@ -34,12 +34,13 @@ FEAT_MODULAR_42SH=( \
 )
 
 FEAT_BONUS_42SH=( \
+	# Posix shell features
+	"BUILTIN_COLON" 1 \
+	"BUILTIN_HELP" 1 \
+	"BUILTIN_HELP_SET" 1 \
 )
 
 FEAT_EXTRAS=( \
-	"BUILTIN_HELP" 1 \
-	"BUILTIN_HELP_SET" 1 \
-	"BUILTIN_COLON" 1 \
 )
 
 # > Category flags

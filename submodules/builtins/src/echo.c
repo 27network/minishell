@@ -6,7 +6,7 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 22:54:45 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/25 22:18:37 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:50:28 by cglandus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	opt_skip(char **argv, t_echo_opt *opt)
 	{
 		if (argv[i][0] != '-' || strlen(argv[i]) < 2)
 			break ;
-		if (!is_opt(argv[i], "neE", opt) || (!ECHO_OPT && !is_opt(argv[i], "n", opt)))
+		if (!is_opt(argv[i], "neE", opt)
+			|| (!ECHO_OPT && !is_opt(argv[i], "n", opt)))
 			break ;
 		i++;
 	}
@@ -57,15 +58,15 @@ static void	ft_putbslh(char *format, t_echo_opt *opt)
 	{
 		if (format[i] == '\\' && opt->bslh_enable && ECHO_OPT)
 		{
-				if (format[i + 1] == '\\')
-					ft_putchar('\\');
-				if (format[i + 1] == 'n')
-					ft_putchar('\n');
-				if (format[i + 1] == 't')
-					ft_putchar('\t');
-				else
-					ft_putchar('Q');
-				i++;
+			if (format[i + 1] == '\\')
+				ft_putchar('\\');
+			if (format[i + 1] == 'n')
+				ft_putchar('\n');
+			if (format[i + 1] == 't')
+				ft_putchar('\t');
+			else
+				ft_putchar('Q');
+			i++;
 		}
 		else
 			ft_putchar(format[i]);
@@ -73,26 +74,13 @@ static void	ft_putbslh(char *format, t_echo_opt *opt)
 	}
 }
 
-static void	ft_echo(char **argv, int i, t_echo_opt *opt)
-{
-	while (argv[i])
-	{
-		ft_putbslh(argv[i], opt);
-		i++;
-		if (argv[i])
-			ft_putchar(' ');
-	}
-	if (!opt->no_nl)
-		ft_putchar('\n');
-}
-
 static int	msh_builtin_echo(int argc, char **argv)
 {
-	(void)		argc;
-	(void)		argv;
 	int			i;
 	t_echo_opt	opt;
 
+	(void) argc;
+	(void) argv;
 	opt.no_nl = false;
 	opt.bslh_enable = false;
 	if (argc < 2)
@@ -100,7 +88,15 @@ static int	msh_builtin_echo(int argc, char **argv)
 	else
 	{
 		i = opt_skip(argv, &opt);
-		ft_echo(argv, i, &opt);
+		while (argv[i])
+		{
+			ft_putbslh(argv[i], &opt);
+			i++;
+			if (argv[i])
+				ft_putchar(' ');
+		}
+		if (!opt.no_nl)
+			ft_putchar('\n');
 	}
 	return (0);
 }
@@ -113,4 +109,3 @@ void	register_echo(void)
 		.func = msh_builtin_echo,
 	});
 }
-

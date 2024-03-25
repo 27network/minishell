@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   flags.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 10:20:10 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/02/24 05:21:18 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/22 16:55:22 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/22 17:52:58 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#ifndef FLAGS_H
+# define FLAGS_H
+# undef FLAGS_H
+# ifndef __MSH_FLAGS_H__
+#  define __MSH_FLAGS_H__
 
-# include <msh/minishell.h>
+#  include <stdbool.h>
 
-char	*msh_get_hostname(t_minishell *msh);
+typedef struct s_msh_flags
+{
+	bool	print_ast;
+	bool	print_pipelines;
+	bool	print_tokens;
+}	t_msh_flags;
 
-int		msh_fileno(FILE	*stream);
-bool	msh_is_interactive(void);
-
-#endif // SYSTEM_H
+# endif // __MSH_FLAGS_H__
+#endif // FLAGS_H

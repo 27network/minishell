@@ -6,13 +6,18 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 05:16:25 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/04 20:38:01 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:26:14 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft/print.h>
 #include <msh/minishell.h>
 #include <msh/ast/tokenizer.h>
 #include <msh/cli/shell.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
 
 void	msh_shell_loop(t_minishell *msh)
 {

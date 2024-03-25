@@ -12,23 +12,22 @@
 
 #ifndef DEFAULTS_H
 # define DEFAULTS_H
+# undef DEFAULTS_H
+# ifndef __MSH_BUILTIN_DEFAULTS_H__
+#  define __MSH_BUILTIN_DEFAULTS_H__
 
 # define ECHO_OPT 0
 # include <msh/minishell.h>
 
-enum e_builtin_need
-{
-	NEED_ENV = 0b01,
-	NEED_MSH = 0b10,
-};
+#  define NEEDS_ENV 0b01
+#  define NEEDS_MSH 0b10
 
 typedef struct s_builtin
 {
 	const char	*name;
 
 	int			(*func)();
-	int			need;
-
+	int			needs;
 }	t_builtin;
 
 typedef union u_opt
@@ -43,4 +42,5 @@ typedef union u_opt
 
 void		msh_builtin_register(t_builtin builtin);
 
+# endif // __MSH_BUILTIN_DEFAULTS_H__
 #endif // DEFAULTS_H

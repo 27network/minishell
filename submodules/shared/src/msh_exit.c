@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_is_interactive.c                               :+:      :+:    :+:   */
+/*   msh_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 05:02:54 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/22 17:57:30 by kiroussa         ###   ########.fr       */
+/*   Created: 2024/03/21 21:59:42 by kiroussa          #+#    #+#             */
+/*   Updated: 2024/03/22 22:07:29 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <msh/io.h>
-#include <readline/readline.h>
-#include <unistd.h>
+#include <msh/minishell.h>
+#include <stdlib.h>
 
-bool	msh_is_interactive(void)
+void	msh_exit(t_minishell *msh, int64_t exit_code)
 {
-	int	tty;
-
-	tty = STDIN_FILENO;
-	if (rl_instream)
-		tty = msh_fileno(rl_instream);
-	return (isatty(tty));
+	msh_destroy(msh);
+	exit(exit_code);
 }

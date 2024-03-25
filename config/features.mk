@@ -1,29 +1,30 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    defaults.mk                                        :+:      :+:    :+:    #
+#    features.mk                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/16 05:36:04 by kiroussa          #+#    #+#              #
-#    Updated: 2024/03/23 21:49:05 by kiroussa         ###   ########.fr        #
+#    Created: 2024/03/23 00:16:42 by kiroussa          #+#    #+#              #
+#    Updated: 2024/03/23 04:10:11 by kiroussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PROJECT_NAME	?= minishell
-PROJECT_VERSION	?= 0.2.2
+NAME = features.h
+SOURCE = features.h.gen.sh
+TARGET = ../submodules/shared/include/msh/features.h
 
-SRC_DIR			?= src
-INCLUDE_DIR		?= include
+all: $(TARGET) $(NAME)
 
-CC				= clang
-CFLAGS			= -Wall -Wextra -Werror -g3
-DFLAGS 			= -MT $@ -MMD -MP -MF $(D_DIR)/$*.tmp.d
+genlink: $(TARGET)
 
-#LDFLAGS shouldn't be defined here, as it's shared with `ar`. 
-# See `submodules/common-prelude.mk`
+$(TARGET):
+	ln -fs $(shell pwd)/$(NAME) $(TARGET)
 
-EXTRA_DEBUG		?= 0
+gen: $(NAME)
 
-print_%:
-	@echo $($*)
+$(NAME): $(SOURCE)
+	bash $(SOURCE) > $(NAME)
+
+.PHONY: all gen genlink
+.SILENT:

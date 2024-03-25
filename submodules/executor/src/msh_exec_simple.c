@@ -6,17 +6,26 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 07:43:19 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/20 03:38:26 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:37:35 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <msh/signal.h> 
+#include <errno.h>
+#include <ft/print.h>
+#include <ft/string.h>
 #define _GNU_SOURCE
 #include <msh/env.h>
 #include <msh/exec/builtin.h>
 #include <msh/exec/exec.h>
-#include <msh/io/path.h>
-#include <msh/externs.h>
-#include <msh/signal.h> 
+#include <msh/io.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#define SHOULD_EXIT -1
+#define BUILTIN_NOT_FOUND -2
 
 static void	msh_exec_error(t_minishell *msh, int err, char *name)
 {
@@ -31,8 +40,30 @@ static void	msh_exec_error(t_minishell *msh, int err, char *name)
 		ft_dprintf(2, "%s: command not found\n", name);
 }
 
-int	msh_exec(t_minishell *msh, char *binary_path, char **av, char **envp)
+static int	msh_exec_status(int wait_status)
 {
+	int	sig;
+
+	if (WIFEXITED(wait_status))
+		return (WEXITSTATUS(wait_status));
+	else if (WIFSIGNALED(wait_status))
+	{
+		sig = WTERMSIG(wait_status);
+		if (sig != SIGINT && sig != SIGQUIT)
+			ft_dprintf(2, "Terminated by signal %d\n", WTERMSIG(wait_status));
+		return (sig + 128);
+	}
+	else if (WIFSTOPPED(wait_status))
+		return (WSTOPSIG(wait_status) + 128);
+	return (SHOULD_EXIT);
+}
+
+static int	msh_exec(
+	t_minishell *msh,
+	char *binary_path,
+	char **av,
+	char **envp
+) {
 	pid_t	pid;
 	int		status;
 
@@ -43,7 +74,7 @@ int	msh_exec(t_minishell *msh, char *binary_path, char **av, char **envp)
 		msh_signal_setdfl();
 		if (execve(binary_path, av, envp) == -1)
 			msh_exec_error(msh, errno, av[0]);
-		return (-1);
+		return (SHOULD_EXIT);
 	}
 	else if (pid < 0)
 		ft_dprintf(2, "%s: %s: %m\n", msh->name, binary_path);
@@ -52,11 +83,7 @@ int	msh_exec(t_minishell *msh, char *binary_path, char **av, char **envp)
 		if (waitpid(pid, &status, 0) < 0)
 			ft_dprintf(2, "%s: %s: %m\n", msh->name, binary_path);
 	}
-	if (WCOREDUMP(status))
-		ft_dprintf(2, "Quit (core dumped)\n");
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	return (status);
+	return (msh_exec_status(status));
 }
 
 int	msh_exec_builtin(t_minishell *msh, char **args, char **env)
@@ -72,18 +99,18 @@ int	msh_exec_builtin(t_minishell *msh, char **args, char **env)
 		argc = 0;
 		while (args[argc])
 			argc++;
-		n_env = (builtin->need & NEED_ENV) == NEED_ENV;
-		n_msh = (builtin->need & NEED_MSH) == NEED_MSH;
+		n_env = (builtin->needs & NEEDS_ENV) == NEEDS_ENV;
+		n_msh = (builtin->needs & NEEDS_MSH) == NEEDS_MSH;
 		if (n_env && n_msh)
-			return (builtin->func(argc, args, env, msh));
+			return (((t_builtin_fboth)builtin->func)(argc, args, env, msh));
 		else if (n_env)
-			return (builtin->func(argc, args, env));
+			return (((t_builtin_fenv)builtin->func)(argc, args, env));
 		else if (n_msh)
-			return (builtin->func(argc, args, msh));
+			return (((t_builtin_fmsh)builtin->func)(argc, args, msh));
 		else
-			return (builtin->func(argc, args));
+			return (((t_builtin_fnone)builtin->func)(argc, args));
 	}
-	return (-1);
+	return (BUILTIN_NOT_FOUND);
 }
 
 int	msh_exec_simple(t_minishell *msh, char **args)
@@ -94,7 +121,7 @@ int	msh_exec_simple(t_minishell *msh, char **args)
 
 	env = msh_env_tab(msh);
 	status = msh_exec_builtin(msh, args, env);
-	if (status != -1)
+	if (status != BUILTIN_NOT_FOUND)
 	{
 		msh_env_tab_free(env);
 		return (status);

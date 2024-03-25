@@ -6,12 +6,15 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:57:31 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/16 01:27:32 by cglandus         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:45:54 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENS_H
 # define TOKENS_H
+# undef TOKENS_H
+# ifndef __MSH_AST_TOKENS_H__
+#  define __MSH_AST_TOKENS_H__
 
 typedef enum e_token_type
 {
@@ -53,4 +56,5 @@ typedef struct s_tkn_assign_data
 	char	*value;
 }	t_tkn_assign_data;
 
+# endif // __MSH_AST_TOKENS_H__
 #endif // TOKENS_H

@@ -6,13 +6,24 @@
 /*   By: kiroussa <oss@xtrm.me>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 03:06:09 by kiroussa          #+#    #+#             */
-/*   Updated: 2024/03/10 03:20:06 by kiroussa         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:24:15 by kiroussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _POSIX_C_SOURCE 200809L // to access SSIZE_MAX
 #include <limits.h>
+#undef _POSIX_C_SOURCE
+
+#include <errno.h>
+#include <fcntl.h>
+#include <ft/mem.h>
+#include <ft/print.h>
 #include <msh/minishell.h>
-#include <msh/io/path.h>
+#include <msh/io.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 static bool	msh_check_binary_file(const char *sample, ssize_t sample_len)
 {
